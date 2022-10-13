@@ -9,10 +9,16 @@ public class DeluxeRoom extends Room{
     private boolean hasSwimmingPool; // boolean status to check whether the deluxeroom has pool
     private boolean hasMassageParlour; // boolean status to check whether the deluxeroom has parlour
     private boolean hasMiniBar; // boolean status to check whether the deluxeroom has minibar
-
-    public DeluxeRoom(int roomNumber,int floorNumber)
-    {
-        super(roomNumber,floorNumber);
+    public DeluxeRoom(int roomNumber, int floorNumber, boolean hasTV, boolean hasAC, boolean hasGeyser, boolean hasWIFI, boolean hasBalcony, boolean hasSwimmingPool, boolean hasMassageParlour, boolean hasMiniBar) {
+        super(roomNumber, floorNumber);
+        this.hasTV = hasTV;
+        this.hasAC = hasAC;
+        this.hasGeyser = hasGeyser;
+        this.hasWIFI = hasWIFI;
+        this.hasBalcony = hasBalcony;
+        this.hasSwimmingPool = hasSwimmingPool;
+        this.hasMassageParlour = hasMassageParlour;
+        this.hasMiniBar = hasMiniBar;
     }
 
     public boolean hasTV() {
@@ -78,4 +84,7 @@ public class DeluxeRoom extends Room{
     public void setHasMiniBar(boolean hasMiniBar) {
         this.hasMiniBar = hasMiniBar;
     }
+    @Override
+    public void displayAvailableFacilities() {};
+
 }

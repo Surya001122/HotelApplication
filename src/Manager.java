@@ -25,9 +25,9 @@ public class Manager extends Employee{
     }
 
     public void addEmployeesInHotel(){
-        // adds the employees in the employee list present in the hotel
-    } //  method in which the manager recruit new Employees for the hotel
+        // adds the employees in the employee list present in the hotel.
+    } //  method in which the manager recruit new Employees for the hotel.
     public void removeEmployeesInHotel(){
-        // removes the employees in the employee list present in the hotel
-    } // method in which the manager dismisses the current Employees working in the hotel
+        // removes the employees in the employee list present in the hotel.
+    } // method in which the manager dismisses the current Employees working in the hotel.
 }

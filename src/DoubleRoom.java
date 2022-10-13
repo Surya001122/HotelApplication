@@ -1,13 +1,15 @@
 // DoubleRoom is a type of RoomType(is a relationship)
 
 class DoubleRoom extends Room{
-    private boolean hasTV; // boolean status to check whether the deluxeroom has tv
-    private boolean hasAC; // boolean status to check whether the deluxeroom has ac
-    private boolean hasGeyser; // boolean status to check whether the deluxeroom has heater
+    private boolean hasTV; // boolean status to check whether the doubleroom has tv
+    private boolean hasAC; // boolean status to check whether the doubleroom has ac
+    private boolean hasGeyser; // boolean status to check whether the doubleroom has heater
 
-    public DoubleRoom(int roomNumber,int floorNumber)
-    {
-        super(roomNumber,floorNumber);
+    public DoubleRoom(int roomNumber, int floorNumber, boolean hasTV, boolean hasAC, boolean hasGeyser) {
+        super(roomNumber, floorNumber);
+        this.hasTV = hasTV;
+        this.hasAC = hasAC;
+        this.hasGeyser = hasGeyser;
     }
 
     public boolean hasTV() {
@@ -33,4 +35,6 @@ class DoubleRoom extends Room{
     public void setHasGeyser(boolean hasGeyser) {
         this.hasGeyser = hasGeyser;
     }
+    @Override
+    public void displayAvailableFacilities() {};
 }

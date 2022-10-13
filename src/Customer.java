@@ -1,46 +1,33 @@
-import java.util.ArrayList;
-
 public class Customer {
-    private int customer_id; // stores the id of the customer
-    private Order order; // stores the reference of the order
-
-    private Payment payment; // stores the reference of the payment
-    private String name; //stores the customer name
-    private String gender; // stores the gender of the customer
-    private String address; // stores the address of the customer
-    private String phone_no; // stores the phone number of the customer
-    ArrayList<Room> customerBookedRooms = new ArrayList<>(); // Customer can have  many rooms.Customer has bookedRooms(has a relationship)
-
-    public Customer(int customer_id, String name, String gender, String address, String phone_no) {
-        this.customer_id = customer_id;
-        this.name = name;
+    private String customerId;
+    private String customerName;
+    private String gender;
+    private String customerAddress;
+    private String customerPhoneNumber;
+    private String customerEmailId;
+    public Customer(String customerId, String customerName, String gender, String customerAddress, String customerPhoneNumber, String customerEmailId, String customerPassword) {
+        this.customerId = customerId;
+        this.customerName = customerName;
         this.gender = gender;
-        this.address = address;
-        this.phone_no = phone_no;
+        this.customerAddress = customerAddress;
+        this.customerPhoneNumber = customerPhoneNumber;
+        this.customerEmailId = customerEmailId;
     }
 
-    public int getCustomer_id() {
-        return customer_id;
+    public String getCustomerId() {
+        return customerId;
     }
 
-    public void setCustomer_id(int customer_id) {
-        this.customer_id = customer_id;
+    public void setCustomerId(String customerId) {
+        this.customerId = customerId;
     }
 
-    public Order getOrder() {
-        return order;
+    public String getCustomerName() {
+        return customerName;
     }
 
-    public void setOrder(Order order) {
-        this.order = order;
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
+    public void setCustomerName(String customerName) {
+        this.customerName = customerName;
     }
 
     public String getGender() {
@@ -51,28 +38,28 @@ public class Customer {
         this.gender = gender;
     }
 
-    public String getAddress() {
-        return address;
+    public String getCustomerAddress() {
+        return customerAddress;
     }
 
-    public void setAddress(String address) {
-        this.address = address;
+    public void setCustomerAddress(String customerAddress) {
+        this.customerAddress = customerAddress;
     }
 
-    public String getPhone_no() {
-        return phone_no;
+    public String getCustomerPhoneNumber() {
+        return customerPhoneNumber;
     }
 
-    public void setPhone_no(String phone_no) {
-        this.phone_no = phone_no;
+    public void setCustomerPhoneNumber(String customerPhoneNumber) {
+        this.customerPhoneNumber = customerPhoneNumber;
     }
 
-    public ArrayList<Room> getCustomerRooms() {
-        return customerBookedRooms;
+    public String getCustomerEmailId() {
+        return customerEmailId;
     }
 
-    public void addCustomerRooms(Room room) {
-        customerBookedRooms.add(room);
+    public void setCustomerEmailId(String customerEmailId) {
+        this.customerEmailId = customerEmailId;
     }
 
 }
