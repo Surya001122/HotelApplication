@@ -1,14 +1,14 @@
 // SingleRoom is a type of RoomType(is a relationship)
 public class SingleRoom extends Room{
-    private boolean hasTV; // boolean status to check whether the singleroom has tv
-    public SingleRoom(int roomNumber, int floorNumber, boolean hasTV) {
+    public SingleRoom(int roomNumber, int floorNumber) {
         super(roomNumber, floorNumber);
-        this.hasTV = hasTV;
     }
-    public boolean isHasTV() {
-        return hasTV;
-    }
-    public void setHasTV(boolean hasTV) { this.hasTV = hasTV; }
     @Override
-    public void displayAvailableFacilities() {};
+    public void displayAvailableFacilities() {}
+    @Override
+    public int calculateRoomRent() {return 1;}
+    @Override
+    public int calculateFoodOrdersAmount() {return 1;}
+    @Override
+    public int calculateItemsUsedInPantry() {return 1;}
 }

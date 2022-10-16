@@ -1,5 +1,6 @@
+import java.util.ArrayList;
 import java.util.HashMap;
-// Room is abstract as there is no need to create object for rooms
+// Room is abstract as there is no need to create object for rooms.
 public abstract class Room {
     private String customerId; // stores the customerId
     private int roomNumber; // stores the room_number
@@ -12,6 +13,7 @@ public abstract class Room {
     private int otherServicesRate; // stores the amount of other services to that room.
     private String roomMobileNumber; // stores the room's mobileNumber
     private HashMap<String,String> Guests; // stores the guestId and guestName in the room.
+    private HashMap<Integer,String> PantryItems; // stores the quantity of item used and the food item used in pantry
 
     public Room(int roomNumber, int floorNumber) {
         this.roomNumber = roomNumber;
@@ -104,11 +106,23 @@ public abstract class Room {
     public void addGuests(String guestId, String guestName) {
         Guests.put(guestId,guestName);
     }
+
+    public HashMap<Integer, String> getPantryItems() {
+        return PantryItems;
+    }
+
+    public void addPantryItems(String pantryItem) {
+        PantryItems.put(0,pantryItem); // 0 represents the count of pantryItem used by the person in that room.
+    }
+
     public void bookRoom() {} // method is used to change the status of the boolean type roomStatus to true to indicate that ths room is now occupied.
     public void cancelBooking() {} // method is used to change the status of the boolean type roomStatus to false to indicate that the room is now vacant.
     public void displayRoomInfo() {} // method is used to display the room details.
     public void displayGuestInfo() {} // method is used to display the guest info in that particular room.
-    public void orderExtraBeds() {} // method is used to order extra beds if it is needed.
+    public void orderExtraBeds() {} // method is used to order extra beds if it is needed and the totalBeds will be increased.
     public void orderFood() {} // method is used to order food services and add the amount to otherServicesRate.
-    abstract void displayAvailableFacilities(); // abstract method, as the availability of facilities changes for different rooms.
+    abstract void displayAvailableFacilities();// abstract method, as the availability of facilities changes for different rooms and there is no need to implement this method in general class Room.
+    abstract int calculateRoomRent(); //abstract method, as the total rent and other services differ for each room and the implementation of calculating rent based on the facilities is hidden by abstraction.
+    abstract int calculateFoodOrdersAmount(); // abstract method, as the room food service varies for different rooms.
+    abstract int calculateItemsUsedInPantry(); // abstract method, as the pantry items used varies for different rooms.
 }
