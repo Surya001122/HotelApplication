@@ -9,8 +9,5 @@ public class DeluxeRoom extends Room{
     @Override
     public int calculateRoomRent() {return 1;}
     @Override
-    public int calculateFoodOrdersAmount() {return 1;}
-    @Override
-    public int calculateItemsUsedInPantry() {return 1;}
-
+    public int calculateAmountForPantryItems() {return 1;}
 }

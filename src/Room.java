@@ -1,20 +1,19 @@
 import java.util.ArrayList;
 import java.util.HashMap;
-// Room is abstract as there is no need to create object for rooms.
 public abstract class Room {
-    private String customerId; // stores the customerId
-    private int roomNumber; // stores the room_number
-    private String roomType; // stores te type of the room
-    private int floorNumber; // stores the floorNumber of the room
-    private boolean roomStatus; // indicates whether the room is vacant or occupied
-    private int totalBeds; // stores the number of beds the room has
-    private int weekDayRate; // stores the rent of the room from mon to fri
-    private int weekEndRate; // stores the rent of the room in weekends
+    private String customerId; // stores the customerId.
+    private int roomNumber; // stores the room_number.
+    private String roomType; // stores the type of the room.
+    private int floorNumber; // stores the floorNumber of the room.
+    private boolean roomStatus; // indicates whether the room is vacant or occupied.
+    private int totalBeds; // stores the number of beds the room has in it.
+    private int weekDayRate; // stores the rent of the room from mon to fri.
+    private int weekEndRate; // stores the rent of the room in weekends.
     private int otherServicesRate; // stores the amount of other services to that room.
-    private String roomMobileNumber; // stores the room's mobileNumber
+    private String roomMobileNumber; // stores the room's mobileNumber.
     private HashMap<String,String> Guests; // stores the guestId and guestName in the room.
-    private HashMap<Integer,String> PantryItems; // stores the quantity of item used and the food item used in pantry
-
+    private HashMap<Integer,String> PantryItems; // stores the quantity of item used and the food item used in pantry.
+    // Initially Integer part is zero for all items and the count increases after using that particular item.
     public Room(int roomNumber, int floorNumber) {
         this.roomNumber = roomNumber;
         this.floorNumber = floorNumber;
@@ -119,10 +118,11 @@ public abstract class Room {
     public void cancelBooking() {} // method is used to change the status of the boolean type roomStatus to false to indicate that the room is now vacant.
     public void displayRoomInfo() {} // method is used to display the room details.
     public void displayGuestInfo() {} // method is used to display the guest info in that particular room.
-    public void orderExtraBeds() {} // method is used to order extra beds if it is needed and the totalBeds will be increased.
-    public void orderFood() {} // method is used to order food services and add the amount to otherServicesRate.
+    public void orderExtraBeds() {} // method is used to order extra beds if it is needed and the totalBeds variable will be increased.
+    public void orderFood() {} // method is used to order food services to that room and add the amount to otherServicesRate.
+    public void replaceDefectedItems() {} // method is used to replace the beds and other electrical appliances if it is defected
+    public int calculateFoodOrdersAmount() {return 1;}
     abstract void displayAvailableFacilities();// abstract method, as the availability of facilities changes for different rooms and there is no need to implement this method in general class Room.
-    abstract int calculateRoomRent(); //abstract method, as the total rent and other services differ for each room and the implementation of calculating rent based on the facilities is hidden by abstraction.
-    abstract int calculateFoodOrdersAmount(); // abstract method, as the room food service varies for different rooms.
-    abstract int calculateItemsUsedInPantry(); // abstract method, as the pantry items used varies for different rooms.
+    abstract int calculateRoomRent(); //abstract method, as the rent differ for each room based on the facilities and the implementation of calculating the rent is hidden.
+    abstract int calculateAmountForPantryItems(); // abstract method, as the pantry items used varies for different rooms.
 }
