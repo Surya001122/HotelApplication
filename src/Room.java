@@ -11,7 +11,7 @@ public abstract class Room {
     private int weekEndRate; // stores the rent of the room in weekends.
     private int otherServicesRate; // stores the amount of other services to that room.
     private int roomMobileNumber; // stores the room's mobileNumber.
-    private static int roomServiceNumber = 123; // stores the room service number.
+    private static int roomServiceNumber = 123; // stores the room service number. static variable as the roomService number remains same for all the rooms.
     private static String wifiName; // common to all rooms
     private static String wifiPassword; // common to all rooms
     private HashMap<String,String> Guests; // stores the guestId and guestName in the room.
