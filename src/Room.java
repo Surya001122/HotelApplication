@@ -10,13 +10,13 @@ public abstract class Room {
     private int weekDayRate; // stores the rent of the room from mon to fri.
     private int weekEndRate; // stores the rent of the room in weekends.
     private int otherServicesRate; // stores the amount of other services to that room.
-    private String roomMobileNumber; // stores the room's mobileNumber.
-    private String roomServiceNumber; // stores the room service number.
-    private String wifiName;
-    private String wifiPassword;
+    private int roomMobileNumber; // stores the room's mobileNumber.
+    private static int roomServiceNumber = 123; // stores the room service number.
+    private static String wifiName;
+    private static String wifiPassword;
     private HashMap<String,String> Guests; // stores the guestId and guestName in the room.
-    private HashMap<Integer,String> PantryItems; // stores the quantity of item used and the food item used in pantry.
-    // Initially Integer part is zero for all items and the count increases after using that particular item.
+    private HashMap<String,Integer> PantryItems; // stores the quantity of item and the food item used in pantry.
+    // Initially Integer part represents the quantity of food item initiallly.
     public Room(int roomNumber, int floorNumber) {
         this.roomNumber = roomNumber;
         this.floorNumber = floorNumber;
@@ -95,35 +95,35 @@ public abstract class Room {
         this.otherServicesRate = otherServicesRate;
     }
 
-    public String getRoomMobileNumber() {
+    public int getRoomMobileNumber() {
         return roomMobileNumber;
     }
-    public void setRoomMobileNumber(String roomMobileNumber) {
+    public void setRoomMobileNumber(int roomMobileNumber) {
         this.roomMobileNumber = roomMobileNumber;
     }
 
-    public String getRoomServiceNumber() {
+    public int getRoomServiceNumber() {
         return roomServiceNumber;
     }
 
-    public void setRoomServiceNumber(String roomServiceNumber) {
+    public void setRoomServiceNumber(int roomServiceNumber) {
         this.roomServiceNumber = roomServiceNumber;
     }
 
-    public String getWifiName() {
+    public static String getWifiName() {
         return wifiName;
     }
 
-    public void setWifiName(String wifiName) {
-        this.wifiName = wifiName;
+    public static void setWifiName(String wifiName) {
+        Room.wifiName = wifiName;
     }
 
-    public String getWifiPassword() {
+    public static String getWifiPassword() {
         return wifiPassword;
     }
 
-    public void setWifiPassword(String wifiPassword) {
-        this.wifiPassword = wifiPassword;
+    public static void setWifiPassword(String wifiPassword) {
+        Room.wifiPassword = wifiPassword;
     }
 
     public HashMap<String, String> getGuests() {
@@ -133,12 +133,12 @@ public abstract class Room {
         Guests.put(guestId,guestName);
     }
 
-    public HashMap<Integer, String> getPantryItems() {
+    public HashMap<String,Integer> getPantryItems() {
         return PantryItems;
     }
 
-    public void addPantryItems(String pantryItem) {
-        PantryItems.put(0,pantryItem); // 0 represents the count of pantryItem used by the person in that room.
+    public void addPantryItems(String pantryItem,int quantity) {
+        PantryItems.put(pantryItem,quantity);
     }
 
     public void bookRoom() {} // method is used to change the status of the boolean type roomStatus to true to indicate that ths room is now occupied.
@@ -152,5 +152,4 @@ public abstract class Room {
     public int calculateFoodOrdersAmount() {return 1;}
     abstract void displayAvailableFacilities();// abstract method, as the availability of facilities changes for different rooms and there is no need to implement this method in general class Room.
     abstract int calculateRoomRent(); //abstract method, as the rent differ for each room based on the facilities and the implementation of calculating the rent is hidden.
-    abstract int calculateAmountForPantryItems(); // abstract method, as the pantry items used varies for different rooms.
 }

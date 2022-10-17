@@ -7,6 +7,4 @@ public class SingleRoom extends Room{
     public void displayAvailableFacilities() {}
     @Override
     public int calculateRoomRent() {return 1;}
-    @Override
-    public int calculateAmountForPantryItems() {return 1;}
 }
