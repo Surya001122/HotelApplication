@@ -12,11 +12,11 @@ public abstract class Room {
     private int otherServicesRate; // stores the amount of other services to that room.
     private int roomMobileNumber; // stores the room's mobileNumber.
     private static int roomServiceNumber = 123; // stores the room service number.
-    private static String wifiName;
-    private static String wifiPassword;
+    private static String wifiName; // common to all rooms
+    private static String wifiPassword; // common to all rooms
     private HashMap<String,String> Guests; // stores the guestId and guestName in the room.
     private HashMap<String,Integer> PantryItems; // stores the quantity of item and the food item used in pantry.
-    // Initially Integer part represents the quantity of food item initiallly.
+    // Integer part represents the quantity of food item initiallly.
     public Room(int roomNumber, int floorNumber) {
         this.roomNumber = roomNumber;
         this.floorNumber = floorNumber;
@@ -140,7 +140,6 @@ public abstract class Room {
     public void addPantryItems(String pantryItem,int quantity) {
         PantryItems.put(pantryItem,quantity);
     }
-
     public void bookRoom() {} // method is used to change the status of the boolean type roomStatus to true to indicate that ths room is now occupied.
     public void cancelBooking() {} // method is used to change the status of the boolean type roomStatus to false to indicate that the room is now vacant.
     public void displayRoomInfo() {} // method is used to display the room details.
