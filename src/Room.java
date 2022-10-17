@@ -11,6 +11,9 @@ public abstract class Room {
     private int weekEndRate; // stores the rent of the room in weekends.
     private int otherServicesRate; // stores the amount of other services to that room.
     private String roomMobileNumber; // stores the room's mobileNumber.
+    private String roomServiceNumber; // stores the room service number.
+    private String wifiName;
+    private String wifiPassword;
     private HashMap<String,String> Guests; // stores the guestId and guestName in the room.
     private HashMap<Integer,String> PantryItems; // stores the quantity of item used and the food item used in pantry.
     // Initially Integer part is zero for all items and the count increases after using that particular item.
@@ -99,6 +102,30 @@ public abstract class Room {
         this.roomMobileNumber = roomMobileNumber;
     }
 
+    public String getRoomServiceNumber() {
+        return roomServiceNumber;
+    }
+
+    public void setRoomServiceNumber(String roomServiceNumber) {
+        this.roomServiceNumber = roomServiceNumber;
+    }
+
+    public String getWifiName() {
+        return wifiName;
+    }
+
+    public void setWifiName(String wifiName) {
+        this.wifiName = wifiName;
+    }
+
+    public String getWifiPassword() {
+        return wifiPassword;
+    }
+
+    public void setWifiPassword(String wifiPassword) {
+        this.wifiPassword = wifiPassword;
+    }
+
     public HashMap<String, String> getGuests() {
         return Guests;
     }
@@ -118,7 +145,8 @@ public abstract class Room {
     public void cancelBooking() {} // method is used to change the status of the boolean type roomStatus to false to indicate that the room is now vacant.
     public void displayRoomInfo() {} // method is used to display the room details.
     public void displayGuestInfo() {} // method is used to display the guest info in that particular room.
-    public void orderExtraBeds() {} // method is used to order extra beds if it is needed and the totalBeds variable will be increased.
+    public void orderExtraBeds() {} // method is used to order extra beds after checking if that beds can be accomodated on that roomtype and the totalBeds variable will be increased.
+    public void callRoomService() {} // method is used to call roomService where related methods will be called.
     public void orderFood() {} // method is used to order food services to that room and add the amount to otherServicesRate.
     public void replaceDefectedItems() {} // method is used to replace the beds and other electrical appliances if it is defected
     public int calculateFoodOrdersAmount() {return 1;}
