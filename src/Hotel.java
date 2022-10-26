@@ -103,6 +103,9 @@ class Hotel {
     public void addGuests(String guestId, String guestName) {
         Guests.put(guestId,guestName);
     }
+    public void addCustomers(){
+
+    }
     public void displayAllAvailableRooms() {
         for(Room room:rooms){
             if(!room.getRoomStatus())

@@ -5,7 +5,6 @@ public class Admin {
     private String adminName;
     private String adminPassword;
     private Hotel hotel;
-    ArrayList<HotelBooking> bookings = new ArrayList<>();
     public Admin(String adminId, String adminName, String adminPassword) {
         this.adminId = adminId;
         this.adminName = adminName;
@@ -44,10 +43,13 @@ public class Admin {
         this.hotel = hotel;
     }
 
-    public ArrayList<HotelBooking> getBookings() {
-        return bookings;
+    public void addBookings(HotelBooking booking){
+        this.hotel.bookings.add(booking);
     }
-    public void setBookings(ArrayList<HotelBooking> bookings) {
-        this.bookings = bookings;
+    public void displayAvailableRooms(){
+        this.hotel.displayAllAvailableRooms();
+    }
+    public void addCustomers(Customer customer){
+        this.hotel.addCustomers(customer);
     }
 }

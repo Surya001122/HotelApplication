@@ -1,7 +1,10 @@
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
+import java.util.Scanner;
+
 public abstract class Room {
+    Scanner sc = new Scanner(System.in);
     private String customerId; // stores the customerId.
     private int roomNumber; // stores the room_number.
     private String roomType; // stores the type of the room.
@@ -29,6 +32,8 @@ public abstract class Room {
         this.roomType = roomType;
         this.floorNumber = floorNumber;
         this.roomMobileNumber = roomMobileNumber;
+        Guests = new HashMap<>();
+        PantryItems = new HashMap<>();
     }
 
     public String getCustomerId() {
@@ -204,8 +209,26 @@ public abstract class Room {
             System.out.println("Guest id : "+Guest.getKey()+"\n Guest name : "+Guest.getValue());
         }
     } // method is used to display the guest info in that particular room.
-    public void orderExtraBeds() {} // method is used to order extra beds after checking if that beds can be accomodated on that roomtype and the totalBeds variable will be increased.
-    public void callRoomService() {} // method is used to call roomService where related methods will be called.
+    public void orderExtraBeds() {
+        this.totalBeds += 1;
+    } // method is used to order extra beds after checking if that beds can be accomodated on that roomtype and the totalBeds variable will be increased.
+    public void callRoomService(int number) {
+        if(number==roomServiceNumber)
+        {
+            System.out.println("Welcome!!!Send your request\n\n\nSelect 1 for Ordering Food\nSelect 2 for replacement of items\n");
+            int choice = sc.nextInt();
+            switch(choice){
+                case 1:
+                    orderFood();
+                    break;
+                case 2:
+                    replaceDefectedItems();
+                    break;
+                default:
+                    break;
+            }
+        }
+    } // method is used to call roomService where related methods will be called.
     public void orderFood() {} // method is used to order food services to that room and add the amount to otherServicesRate.
     public void replaceDefectedItems() {} // method is used to replace the beds and other electrical appliances if it is defected
     public int calculateFoodOrdersAmount() {return 1;}
