@@ -1,7 +1,11 @@
+import java.util.ArrayList;
+
 public class Admin {
     private String adminId;
     private String adminName;
     private String adminPassword;
+    private Hotel hotel;
+    ArrayList<HotelBooking> bookings = new ArrayList<>();
     public Admin(String adminId, String adminName, String adminPassword) {
         this.adminId = adminId;
         this.adminName = adminName;
@@ -30,5 +34,20 @@ public class Admin {
 
     public void setAdminPassword(String adminPassword) {
         this.adminPassword = adminPassword;
+    }
+
+    public Hotel getHotel() {
+        return hotel;
+    }
+
+    public void setHotel(Hotel hotel) {
+        this.hotel = hotel;
+    }
+
+    public ArrayList<HotelBooking> getBookings() {
+        return bookings;
+    }
+    public void setBookings(ArrayList<HotelBooking> bookings) {
+        this.bookings = bookings;
     }
 }

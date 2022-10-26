@@ -103,15 +103,15 @@ class Hotel {
     public void addGuests(String guestId, String guestName) {
         Guests.put(guestId,guestName);
     }
-//    public Room getRoom(String roomType,int roomNumber) {}
-    public void displayAllRooms() {
+    public void displayAllAvailableRooms() {
         for(Room room:rooms){
+            if(!room.getRoomStatus())
             System.out.println(room.getRoomNumber()+" "+room.getRoomType());
         }
     }
     public Room getRoom(String roomType,int roomNumber){
         for(Room room:rooms){
-            if(room.getRoomNumber()==roomNumber && !room.getRoomStatus() && room.getRoomType()==roomType)
+            if(room.getRoomNumber()==roomNumber && room.getRoomType().equals(roomType) && !room.getRoomStatus())
                 return room;
         }
         return null;

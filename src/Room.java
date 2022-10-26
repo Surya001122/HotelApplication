@@ -15,11 +15,11 @@ public abstract class Room {
     private static int roomServiceNumber = 123; // stores the room service number. static variable as the roomService number remains same for all the rooms.
     private static String wifiName = "KFC"; // common to all rooms
     private static String wifiPassword = "KFC123"; // common to all rooms
-    private HashMap<String,String> Guests; // stores the guestId and guestName in the room.
+    private HashMap<Integer,String> Guests; // stores the guestId and guestName in the room.
     private HashMap<String,Integer> PantryItems; // stores the quantity of item and the food item used in pantry.
     // Integer part represents the quantity of food item initiallly.
-    private Date fromDate; // stores the initial date of the customer in the hotel.
-    private Date toDate; // stores the final date of the customer in the hotel.
+//    private Date fromDate; // stores the initial date of the customer in the hotel.
+//    private Date toDate; // stores the final date of the customer in the hotel.
     private int totalNumberOfAdults; // stores the total number of adults.
     private int totalNumberOfChildren; // stores the total number of children.
     private int totalNightsStay; // stores the total night stay of the person in the room.
@@ -134,10 +134,10 @@ public abstract class Room {
         Room.wifiPassword = wifiPassword;
     }
 
-    public HashMap<String, String> getGuests() {
+    public HashMap<Integer, String> getGuests() {
         return Guests;
     }
-    public void addGuests(String guestId, String guestName) {
+    public void addGuests(int guestId, String guestName) {
         Guests.put(guestId,guestName);
     }
 
@@ -149,21 +149,21 @@ public abstract class Room {
         PantryItems.put(pantryItem,quantity);
     }
 
-    public Date getFromDate() {
-        return fromDate;
-    }
-
-    public void setFromDate(Date fromDate) {
-        this.fromDate = fromDate;
-    }
-
-    public Date getToDate() {
-        return toDate;
-    }
-
-    public void setToDate(Date toDate) {
-        this.toDate = toDate;
-    }
+//    public Date getFromDate() {
+//        return fromDate;
+//    }
+//
+//    public void setFromDate(Date fromDate) {
+//        this.fromDate = fromDate;
+//    }
+//
+//    public Date getToDate() {
+//        return toDate;
+//    }
+//
+//    public void setToDate(Date toDate) {
+//        this.toDate = toDate;
+//    }
 
     public int getTotalNumberOfAdults() {
         return totalNumberOfAdults;
@@ -188,11 +188,22 @@ public abstract class Room {
     public void setTotalNightsStay(int totalNightsStay) {
         this.totalNightsStay = totalNightsStay;
     }
-
-    public void bookRoom() {} // method is used to change the status of the boolean type roomStatus to true to indicate that ths room is now occupied.
-    public void cancelBooking() {} // method is used to change the status of the boolean type roomStatus to false to indicate that the room is now vacant.
-    public void displayRoomInfo() {} // method is used to display the room details.
-    public void displayGuestInfo() {} // method is used to display the guest info in that particular room.
+    public void bookRoom(Customer customer) {
+        this.customerId = customer.getCustomerId();
+        this.roomStatus = !this.roomStatus;
+    } // method is used to change the status of the boolean type roomStatus to true to indicate that ths room is now occupied.
+    public void cancelBooking() {
+        this.customerId = null;
+        this.roomStatus = !this.roomStatus;
+    } // method is used to change the status of the boolean type roomStatus to false to indicate that the room is now vacant.
+    public void displayRoomInfo() {
+        System.out.println();
+    } // method is used to display the room details.
+    public void displayGuestInfo() {
+        for(HashMap.Entry Guest : Guests.entrySet()){
+            System.out.println("Guest id : "+Guest.getKey()+"\n Guest name : "+Guest.getValue());
+        }
+    } // method is used to display the guest info in that particular room.
     public void orderExtraBeds() {} // method is used to order extra beds after checking if that beds can be accomodated on that roomtype and the totalBeds variable will be increased.
     public void callRoomService() {} // method is used to call roomService where related methods will be called.
     public void orderFood() {} // method is used to order food services to that room and add the amount to otherServicesRate.

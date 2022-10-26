@@ -6,15 +6,16 @@ public class Main {
         HashMap<String,String>usersLoginInfo = new HashMap<>();
         Hotel hotel = new Hotel("KFC","Chennai","54321","KFC@gmail.com");
         Admin admin = new Admin("admin1","ADMIN","admin12345");
+        admin.setHotel(hotel);
         Customer customer = new Customer("customer1","Surya","Male","Chennai","1234567890","customer12345");
         usersLoginInfo.put(admin.getAdminId(), admin.getAdminPassword());
         usersLoginInfo.put(customer.getCustomerId(),customer.getCustomerPassword());
-        Room singleRoom = new SingleRoom(1,"Single",1,Integer.parseInt("1"));
-        Room doubleRoom = new DoubleRoom(2,"Double",1,Integer.parseInt("2"));
-        Room deluxeRoom = new DeluxeRoom(3,"Deluxe",1,Integer.parseInt("3"));
-        hotel.addRooms(singleRoom);
-        hotel.addRooms(doubleRoom);
-        hotel.addRooms(deluxeRoom);
+        Room singleRoom = new SingleRoom(1,"Single",1,1);
+        Room doubleRoom = new DoubleRoom(2,"Double",1,2);
+        Room deluxeRoom = new DeluxeRoom(3,"Deluxe",1,3);
+        admin.getHotel().addRooms(singleRoom);
+        admin.getHotel().addRooms(doubleRoom);
+        admin.getHotel().addRooms(deluxeRoom);
         boolean bool = true;
         while(bool)
         {
@@ -25,11 +26,11 @@ public class Main {
             if(usersLoginInfo.containsKey(loginId) && usersLoginInfo.containsValue(loginPassword)){
                 System.out.println("Logged In Successfully");
                 while (bool) {
-                    System.out.println("Enter 1 to Display Available Rooms\n\n\nEnter your choice : ");
+                    System.out.println("Enter 1 to Display Available Rooms\nEnter 2 to book Rooms\n\n\nEnter your choice : ");
                     int choice = sc.nextInt();
                     switch(choice) {
                         case 1:
-                            hotel.displayAllRooms();
+                            admin.getHotel().displayAllAvailableRooms();
                             break;
                         case 2:
                             HotelBooking booker = new HotelBooking();
@@ -41,26 +42,26 @@ public class Main {
                                 System.out.print("\nEnter room number : ");
                                 int roomNumber = sc.nextInt();
                                 System.out.println();
-                                Room room = hotel.getRoom(roomType, roomNumber);
+                                Room room = admin.getHotel().getRoom(roomType, roomNumber);
                                 if (room == null) {
                                     System.out.println("Enter valid room information....\n");
                                     break;
                                 } else {
-                                    booker.createBooking(customer);
+                                    booker.createBooking(customer,room);
                                     System.out.println("\nEnter guest details : \n");
-                                    System.out.println("Enter total guests : ");
+                                    System.out.println("\nEnter total guests : ");
                                     int guests = sc.nextInt();
                                     while(guests>0) {
-                                        System.out.println("Enter guest name :");
+                                        System.out.print("\nEnter guest name :");
                                         String guestName = sc.next();
-                                        booker.addGuests(guestName);
+                                        booker.addGuests(guestName,room);
                                         guests--;
                                     }
                                     System.out.println("Booking successful\n");
-                                    booker.displayBookingDetails();
                                 }
                                 totalRooms--;
                             }
+                            booker.displayBookingDetails();
                             break;
                         default:
                             bool = false;

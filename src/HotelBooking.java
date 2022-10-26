@@ -8,7 +8,7 @@ public class HotelBooking {
     private String customerName; // stores the name of the customer.
     private String customerPhoneNumber; // stores the mobile number of the customer.
     HashMap<Integer,String> Guests; // stores the guestId and guestName in the rooms booked...includes the person's name and person's id accompanying the customers.
-    HashMap<Integer,Room> bookedRooms; // Integer represents the days at which the room will be in occupied status.....Room represents the total rooms booked by the customer.
+    HashMap<Room,Integer> bookedRooms; // Integer represents the days at which the room will be in occupied status.....Room represents the total rooms booked by the customer.
 
     public HotelBooking() {
         this.bookingId = id++;
@@ -56,33 +56,50 @@ public class HotelBooking {
         Guests.put(guestId,guestName);
     }
 
-    public HashMap<Integer, Room> getBookedRooms() {
+    public HashMap<Room, Integer> getBookedRooms() {
         return bookedRooms;
     }
 
-    public void addBookedRooms(int days, Room bookedRoom) {
-        bookedRooms.put(days,bookedRoom);
+    public void setBookedRooms(HashMap<Room, Integer> bookedRooms) {
+        this.bookedRooms = bookedRooms;
     }
-    public void createBooking(Customer customer) {
+
+    public void addBookedRooms(int days, Room bookedRoom) {
+        bookedRooms.put(bookedRoom,days);
+    }
+    public void createBooking(Customer customer,Room room) {
         this.customerId = customer.getCustomerId();
         this.customerName = customer.getCustomerName();
         this.customerPhoneNumber = customer.getCustomerPhoneNumber();
+        bookedRooms.put(room,1);
+
     } // to create the booking of the customer
     public void cancelBooking(Customer customer) {
         this.customerId = null;
         this.customerName = null;
         this.customerPhoneNumber = null;
     } // to cancel or checkout customer from hotel
-    public void addGuests(String guestName){
-        Guests.put(guestId++,guestName);
+    public void addGuests(String guestName,Room room){
+        Guests.put(guestId,guestName);
+        room.addGuests(guestId++,guestName);
     }
     public void getGuestDetails() {
-        System.out.println(Guests);
-    } // to get the guestDetails accompanied with the customer
-    public int calculateTotalDays(String fromDate,String toDate){return 1;} // to calculate total days the customer stays in the hotel
+        System.out.println("\n\n\nGuest Information :");
+        for(HashMap.Entry Guest : Guests.entrySet()){
+            System.out.println("\nGuest id : "+Guest.getKey()+"\nGuest name : "+Guest.getValue());
+        }
+        System.out.println("***************************************");
+    } // to get the guestDetails accompanied with the customer.
+    public void getRoomDetails(){
+        System.out.println("\nRooms booked by Customer\n*********************************");
+        for(HashMap.Entry Rooms : bookedRooms.entrySet()) {
+            Room room = (Room) Rooms.getKey();
+            System.out.println("Total Number of Occupied days : " + Rooms.getValue() + "\nRoom type : " + room.getRoomType()+"\n****************************************");
+        }
+        getGuestDetails();
+    }
     public void displayBookingDetails() {
-        System.out.print("\nBooking id : "+this.bookingId+"\nCustomer id : "+this.customerId+"\nCustomer name : "+this.customerName+"\nCustomer phoneNumber"+this.customerPhoneNumber);
-        System.out.println("Rooms booked by Customer \n");
-        System.out.println(bookedRooms);
+        System.out.print("\nBooking id : "+this.bookingId+"\nCustomer id : "+this.customerId+"\nCustomer name : "+this.customerName+"\nCustomer phoneNumber :"+this.customerPhoneNumber);
+        this.getRoomDetails();
     } // method is used to display booking details of a customer
 }
