@@ -1,4 +1,5 @@
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.HashMap;
 public abstract class Room {
     private String customerId; // stores the customerId.
@@ -12,15 +13,22 @@ public abstract class Room {
     private int otherServicesRate; // stores the amount of other services to that room.
     private int roomMobileNumber; // stores the room's mobileNumber.
     private static int roomServiceNumber = 123; // stores the room service number. static variable as the roomService number remains same for all the rooms.
-    private static String wifiName; // common to all rooms
-    private static String wifiPassword; // common to all rooms
+    private static String wifiName = "KFC"; // common to all rooms
+    private static String wifiPassword = "KFC123"; // common to all rooms
     private HashMap<String,String> Guests; // stores the guestId and guestName in the room.
     private HashMap<String,Integer> PantryItems; // stores the quantity of item and the food item used in pantry.
     // Integer part represents the quantity of food item initiallly.
-    public Room(int roomNumber, int floorNumber) {
+    private Date fromDate; // stores the initial date of the customer in the hotel.
+    private Date toDate; // stores the final date of the customer in the hotel.
+    private int totalNumberOfAdults; // stores the total number of adults.
+    private int totalNumberOfChildren; // stores the total number of children.
+    private int totalNightsStay; // stores the total night stay of the person in the room.
+
+    public Room(int roomNumber, String roomType, int floorNumber, int roomMobileNumber) {
         this.roomNumber = roomNumber;
+        this.roomType = roomType;
         this.floorNumber = floorNumber;
-        Guests = new HashMap<>();
+        this.roomMobileNumber = roomMobileNumber;
     }
 
     public String getCustomerId() {
@@ -140,6 +148,47 @@ public abstract class Room {
     public void addPantryItems(String pantryItem,int quantity) {
         PantryItems.put(pantryItem,quantity);
     }
+
+    public Date getFromDate() {
+        return fromDate;
+    }
+
+    public void setFromDate(Date fromDate) {
+        this.fromDate = fromDate;
+    }
+
+    public Date getToDate() {
+        return toDate;
+    }
+
+    public void setToDate(Date toDate) {
+        this.toDate = toDate;
+    }
+
+    public int getTotalNumberOfAdults() {
+        return totalNumberOfAdults;
+    }
+
+    public void setTotalNumberOfAdults(int totalNumberOfAdults) {
+        this.totalNumberOfAdults = totalNumberOfAdults;
+    }
+
+    public int getTotalNumberOfChildren() {
+        return totalNumberOfChildren;
+    }
+
+    public void setTotalNumberOfChildren(int totalNumberOfChildren) {
+        this.totalNumberOfChildren = totalNumberOfChildren;
+    }
+
+    public int getTotalNightsStay() {
+        return totalNightsStay;
+    }
+
+    public void setTotalNightsStay(int totalNightsStay) {
+        this.totalNightsStay = totalNightsStay;
+    }
+
     public void bookRoom() {} // method is used to change the status of the boolean type roomStatus to true to indicate that ths room is now occupied.
     public void cancelBooking() {} // method is used to change the status of the boolean type roomStatus to false to indicate that the room is now vacant.
     public void displayRoomInfo() {} // method is used to display the room details.

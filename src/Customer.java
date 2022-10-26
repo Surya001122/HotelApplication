@@ -4,14 +4,14 @@ public class Customer {
     private String gender;
     private String customerAddress;
     private String customerPhoneNumber;
-    private String customerEmailId;
-    public Customer(String customerId, String customerName, String gender, String customerAddress, String customerPhoneNumber, String customerEmailId, String customerPassword) {
+    private String customerPassword;
+    public Customer(String customerId, String customerName, String gender, String customerAddress, String customerPhoneNumber, String customerPassword) {
         this.customerId = customerId;
         this.customerName = customerName;
         this.gender = gender;
         this.customerAddress = customerAddress;
         this.customerPhoneNumber = customerPhoneNumber;
-        this.customerEmailId = customerEmailId;
+        this.customerPassword = customerPassword;
     }
 
     public String getCustomerId() {
@@ -53,13 +53,10 @@ public class Customer {
     public void setCustomerPhoneNumber(String customerPhoneNumber) {
         this.customerPhoneNumber = customerPhoneNumber;
     }
-
-    public String getCustomerEmailId() {
-        return customerEmailId;
+    public String getCustomerPassword() {
+        return customerPassword;
     }
-
-    public void setCustomerEmailId(String customerEmailId) {
-        this.customerEmailId = customerEmailId;
+    public void setCustomerPassword(String customerPassword) {
+        this.customerPassword = customerPassword;
     }
-
 }

@@ -1,9 +1,10 @@
 // DeluxeRoom is a type of RoomType(is a relationship)
 
 public class DeluxeRoom extends Room{
-    public DeluxeRoom(int roomNumber, int floorNumber) {
-        super(roomNumber, floorNumber);
+    public DeluxeRoom(int roomNumber, String roomType, int floorNumber, int roomMobileNumber) {
+        super(roomNumber, roomType, floorNumber, roomMobileNumber);
     }
+
     @Override
     public void displayAvailableFacilities() {}
     @Override
