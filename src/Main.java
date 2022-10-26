@@ -44,6 +44,7 @@ public class Main {
                                 Room room = hotel.getRoom(roomType, roomNumber);
                                 if (room == null) {
                                     System.out.println("Enter valid room information....\n");
+                                    break;
                                 } else {
                                     booker.createBooking(customer);
                                     System.out.println("\nEnter guest details : \n");
@@ -57,8 +58,8 @@ public class Main {
                                     }
                                     System.out.println("Booking successful\n");
                                     booker.displayBookingDetails();
-                                    totalRooms--;
                                 }
+                                totalRooms--;
                             }
                             break;
                         default:

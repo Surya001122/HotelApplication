@@ -111,7 +111,7 @@ class Hotel {
     }
     public Room getRoom(String roomType,int roomNumber){
         for(Room room:rooms){
-            if(room.getRoomNumber()==roomNumber && !room.getRoomStatus())
+            if(room.getRoomNumber()==roomNumber && !room.getRoomStatus() && room.getRoomType()==roomType)
                 return room;
         }
         return null;
