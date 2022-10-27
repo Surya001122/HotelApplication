@@ -1,6 +1,8 @@
 import java.sql.Array;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.concurrent.Callable;
+
 class Hotel {
     private String hotelName; // stores the name of the hotel
     private String hotelAddress; // stores the address of the hotel
@@ -89,7 +91,10 @@ class Hotel {
     public ArrayList<Customer> getCustomers() {
         return customers;
     }
-    public void addCustomers(Customer customer) {customers.add(customer);}
+
+    public void setCustomers(ArrayList<Customer> customers) {
+        this.customers = customers;
+    }
     public HashMap<String, String> getGuests() {
         return Guests;
     }
@@ -103,8 +108,8 @@ class Hotel {
     public void addGuests(String guestId, String guestName) {
         Guests.put(guestId,guestName);
     }
-    public void addCustomers(){
-
+    public void addCustomers(Customer customer){
+        customers.add(customer);
     }
     public void displayAllAvailableRooms() {
         for(Room room:rooms){
@@ -118,5 +123,21 @@ class Hotel {
                 return room;
         }
         return null;
+    }
+    public Customer getCustomer(String customerId,String customerPassword){
+        for(Customer customer:customers){
+            if(customer.getCustomerId().equals(customerId) && customer.getCustomerPassword().equals(customerPassword))
+                return customer;
+        }
+        return null;
+    }
+    public void displayBookings(Customer customer){
+        for(HotelBooking booking : bookings){
+            if(booking.getCustomerId() == customer.getCustomerId()){
+                booking.displayBookingDetails();
+                booking.displayRoomDetails();
+                booking.displayGuestDetails();
+            }
+        }
     }
 }

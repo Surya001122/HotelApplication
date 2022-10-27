@@ -202,7 +202,7 @@ public abstract class Room {
         this.roomStatus = !this.roomStatus;
     } // method is used to change the status of the boolean type roomStatus to false to indicate that the room is now vacant.
     public void displayRoomInfo() {
-        System.out.println();
+        System.out.println(roomNumber +" "+roomType+" "+roomStatus);
     } // method is used to display the room details.
     public void displayGuestInfo() {
         for(HashMap.Entry Guest : Guests.entrySet()){
