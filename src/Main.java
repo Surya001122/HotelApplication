@@ -14,12 +14,16 @@ public class Main {
         Manager manager = new Manager("admin1","ADMIN","admin123");
         Chef chef = new Chef("chef1","CHEF","chef123");
         Menu menu = new Menu();
+        menu.foodItems.put("Pizza",100);
+        menu.foodItems.put("Burger",200);
         chef.setMenu(menu);
-        manager.addEmployees(chef);
+        hotel.addEmployees(chef);
+        hotel.addEmployees(manager);
         manager.setHotel(hotel);
         Customer customer;
         HotelBooking booker;
         usersLoginInfo.put(manager.getEmployeeId(), manager.getEmployeePassword());
+        usersLoginInfo.put(chef.getEmployeeId(), chef.getEmployeePassword());
         Room room1 = new SingleRoom(1,"Single",1,1,100,1);
         Room room2 = new DoubleRoom(2,"Double",1,2,200,2);
         Room room3 = new DeluxeRoom(3,"Deluxe",1,3,300,3);
@@ -36,7 +40,7 @@ public class Main {
         System.out.println("Start Application.......\n");
         while(bool)
         {
-            System.out.print("1.Customer SignIn\n2.Customer Login\n3.Admin Login\n4.Exit\n\n\nEnter your choice : ");
+            System.out.print("1.Customer SignIn\n2.Customer Login\n3.Manager Login\n4.Employee Login\n5.Exit\n\n\nEnter your choice : ");
             int login = sc.nextInt();
             switch(login) {
                 case 1:
@@ -54,7 +58,7 @@ public class Main {
                     String password = sc.next();
                     customer = new Customer(loginId,name,gender,location,phoneNumber,password);
                     usersLoginInfo.put(customer.getCustomerId(),customer.getCustomerPassword());
-                    manager.addCustomers(customer);
+                    hotel.addCustomers(customer);
                     break;
                 case 2:
                     System.out.println("\nEnter your CustomerId : ");
@@ -99,6 +103,86 @@ public class Main {
                                         break;
                                     default:
                                         customerRun = false;
+                                        System.out.println("Logged out successfully...");
+                                        break;
+                                }
+                            }
+                        }
+                        else
+                        {
+                            System.out.println("\nYou entered wrong password...Please try again...");
+                        }
+                    }
+                    else
+                    {
+                        System.out.println("\nYour ID does not exist...Please try again...");
+                    }
+                    break;
+                case 3:
+                    System.out.print("\nEnter your ManagerID : ");
+                    String managerId = sc.next();
+                    if (usersLoginInfo.containsKey(managerId)) {
+                        System.out.print("\nEnter your ManagerPassword : ");
+                        String managerPassword = sc.next();
+                        if(usersLoginInfo.get(managerId).equals(managerPassword))
+                        {
+                            System.out.println("\n\nManager logged in successfully...");
+                            boolean managerRun = true;
+                            while(managerRun){
+                                System.out.print("\nEnter 1 to add Employees in hotel\nEnter 2 to remove Employees from hotel\nEnter 3 to add customers in hotel\nEnter 4 to remove Customers from hotel\n\n\nEnter your choice : ");
+                                int managerChoice = sc.nextInt();
+                                switch(managerChoice){
+                                    case 1:
+                                        manager.addEmployees();
+                                        break;
+                                    case 2:
+                                        manager.removeEmployees();
+                                        break;
+                                    case 3:
+                                        manager.addCustomers();
+                                        break;
+                                    case 4:
+                                        manager.removeCustomers();
+                                        break;
+                                    default:
+                                        managerRun = false;
+                                        System.out.println("Logged out successfully...");
+                                        break;
+                                }
+                            }
+                        }
+                        else
+                        {
+                            System.out.println("\nYou entered wrong password...Please try again...");
+                        }
+                    }
+                    else
+                    {
+                        System.out.println("\nYour ID does not exist...Please try again...");
+                    }
+                    break;
+                case 4:
+                    System.out.print("\nEnter your EmployeeID : ");
+                    String employeeId = sc.next();
+                    if (usersLoginInfo.containsKey(employeeId)) {
+                        System.out.print("\nEnter your EmployeePassword : ");
+                        String employeePassword = sc.next();
+                        if(usersLoginInfo.get(employeeId).equals(employeePassword))
+                        {
+                            System.out.println("\n\nEmployee logged in successfully...");
+                            boolean employeeRun = true;
+                            while(employeeRun){
+                                System.out.println("\nEnter 1 to display menu\nEnter 2 to change menu\n\n\nEnter your choice :");
+                                int employeeChoice = sc.nextInt();
+                                switch(employeeChoice){
+                                    case 1:
+                                        chef.displayMenu();
+                                        break;
+                                    case 2:
+                                        chef.changeMenu();
+                                        break;
+                                    default:
+                                        employeeRun = false;
                                         System.out.println("Logged out successfully...");
                                         break;
                                 }

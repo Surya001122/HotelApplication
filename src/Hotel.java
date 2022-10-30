@@ -25,6 +25,7 @@ class Hotel {
         rooms = new ArrayList<>();
         customers = new ArrayList<>();
         bookings = new ArrayList<>();
+        employees = new ArrayList<>();
     }
     public String getHotelName() {
         return hotelName;
