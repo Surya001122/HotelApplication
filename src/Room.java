@@ -15,11 +15,6 @@ public abstract class Room {
     private int otherServicesRate; // stores the amount of other services to that room.
     private int roomMobileNumber; // stores the room's mobileNumber.
     private static int roomServiceNumber = 123; // stores the room service number. static variable as the roomService number remains same for all the rooms.
-    private static String wifiName = "KFC"; // common to all rooms
-    private static String wifiPassword = "KFC123"; // common to all rooms
-    HashMap<Integer,String> guests; // stores the guestId and guestName in the rooms booked...includes the person's name and person's id accompanying the customers.
-    private HashMap<String,Integer> PantryItems; // stores the quantity of item and the food item used in pantry.
-
     public Room(int roomNumber, String roomType, int floorNumber, int totalBeds, int rent, int roomMobileNumber) {
         this.roomNumber = roomNumber;
         this.roomType = roomType;
@@ -118,38 +113,6 @@ public abstract class Room {
         Room.roomServiceNumber = roomServiceNumber;
     }
 
-    public static String getWifiName() {
-        return wifiName;
-    }
-
-    public static void setWifiName(String wifiName) {
-        Room.wifiName = wifiName;
-    }
-
-    public static String getWifiPassword() {
-        return wifiPassword;
-    }
-
-    public static void setWifiPassword(String wifiPassword) {
-        Room.wifiPassword = wifiPassword;
-    }
-
-    public HashMap<String, Integer> getPantryItems() {
-        return PantryItems;
-    }
-
-    public void setPantryItems(HashMap<String, Integer> pantryItems) {
-        PantryItems = pantryItems;
-    }
-
-    public HashMap<Integer, String> getGuests() {
-        return guests;
-    }
-
-    public void setGuests(HashMap<Integer, String> guests) {
-        this.guests = guests;
-    }
-
     public void bookRoom(Customer customer) {
         this.customerId = customer.getCustomerId();
         this.roomStatus = true;
@@ -173,27 +136,6 @@ public abstract class Room {
             this.otherServicesRate += 100;
         }
     } // method is used to order extra beds after checking if that beds can be accomodated on that roomtype and the totalBeds variable will be increased.
-    public void callRoomService(int number) {
-        if(number==roomServiceNumber)
-        {
-            System.out.println("\n\nWelcome!!!Select your choice\n\n\nSelect 1 to order food\nEnter 2 to order extra bed\nEnter 3 to exit\n");
-            int choice = sc.nextInt();
-            switch(choice){
-                case 1:
-                    orderFood();
-                    break;
-                case 2:
-                    orderExtraBeds();
-                    break;
-                default:
-                    System.out.println("\n Request declined...");
-                    break;
-            }
-        }
-    } // method is used to call roomService where related methods will be called.
-    public void orderFood() {
-
-    } // method is used to order food services to that room and add the amount to otherServicesRate.
     public int calculateOtherServices(){
         System.out.println("\nOther Services Rate \nRoom Service\nFood Orders");
         return this.getOtherServicesRate();
