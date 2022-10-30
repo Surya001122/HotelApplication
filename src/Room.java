@@ -2,7 +2,6 @@ import java.time.LocalDate;
 import java.util.*;
 import java.time.LocalDateTime;
 
-
 public abstract class Room {
     Scanner sc = new Scanner(System.in);
     private String customerId; // stores the customerId.
@@ -177,7 +176,7 @@ public abstract class Room {
     public void callRoomService(int number) {
         if(number==roomServiceNumber)
         {
-            System.out.println("\n\nWelcome!!!Select your choice\n\n\nSelect 1 to order food\nEnter 2 to order extra bed\nEnter 4 to exit\n");
+            System.out.println("\n\nWelcome!!!Select your choice\n\n\nSelect 1 to order food\nEnter 2 to order extra bed\nEnter 3 to exit\n");
             int choice = sc.nextInt();
             switch(choice){
                 case 1:
@@ -187,6 +186,7 @@ public abstract class Room {
                     orderExtraBeds();
                     break;
                 default:
+                    System.out.println("\n Request declined...");
                     break;
             }
         }
@@ -194,6 +194,10 @@ public abstract class Room {
     public void orderFood() {
 
     } // method is used to order food services to that room and add the amount to otherServicesRate.
+    public int calculateOtherServices(){
+        System.out.println("\nOther Services Rate \nRoom Service\nFood Orders");
+        return this.getOtherServicesRate();
+    }
     abstract void viewAvailableFacilities();// abstract method, as the availability of facilities changes for different rooms and there is no need to implement this method in general class Room.
     abstract int calculateRoomRent(); //abstract method, as the rent differ for each room based on the facilities and the implementation of calculating the rent is hidden.
 }

@@ -2,6 +2,7 @@ import java.sql.Array;
 import java.time.LocalDate;
 import java.time.Period;
 import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeParseException;
 import java.util.*;
 public class HotelBooking {
     Scanner sc;
@@ -14,6 +15,7 @@ public class HotelBooking {
     private int billAmount;
     HashMap<Integer,String> guests; // stores the guestId and guestName in the rooms booked...includes the person's name and person's id accompanying the customers.
     ArrayList<Room> bookedRooms; // Integer represents the days at which the room will be in occupied status.....Room represents the total rooms booked by the customer.
+    private boolean paymentStatus;
 
     public HotelBooking(String customerId,String customerName,String customerPhoneNumber) {
         this.bookingId = id++;
@@ -65,6 +67,14 @@ public class HotelBooking {
         this.billAmount = billAmount;
     }
 
+    public boolean getPaymentStatus() {
+        return paymentStatus;
+    }
+
+    public void setPaymentStatus(boolean paymentStatus) {
+        this.paymentStatus = paymentStatus;
+    }
+
     public HashMap<Integer, String> getGuests() {
         return guests;
     }
@@ -111,17 +121,23 @@ public class HotelBooking {
                 } else {
                     room.displayRoomInfo();
                     room.viewAvailableFacilities();
-                    System.out.print("\nEnter fromDate : ");
-                    String fromDate = sc.next();
-                    System.out.print("\nEnter toDate : ");
-                    String toDate = sc.next();
-                    DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd-MM-yyyy");
-                    LocalDate Date1 = LocalDate.parse(fromDate,formatter);
-                    LocalDate Date2 = LocalDate.parse(toDate,formatter);
-                    Period period = Period.between(Date1, Date2);
-                    int months =(int)period.toTotalMonths();
-                    int days = Math.abs(period.getDays());
-                    daysList.add(months*30+days);
+                    try{
+                        System.out.print("\nEnter fromDate : ");
+                        String fromDate = sc.next();
+                        System.out.print("\nEnter toDate : ");
+                        String toDate = sc.next();
+                        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd-MM-yyyy");
+                        LocalDate Date1 = LocalDate.parse(fromDate,formatter);
+                        LocalDate Date2 = LocalDate.parse(toDate,formatter);
+                        Period period = Period.between(Date1, Date2);
+                        int months =(int)period.toTotalMonths();
+                        int days = Math.abs(period.getDays());
+                        daysList.add(months*30+days);
+                    }
+                    catch (DateTimeParseException dateTimeParseException){
+                        System.out.println("\nEnter valid date..Please try again...");
+                        continue;
+                    }
                     rooms.add(room);
                     room.bookRoom(customer);
                     System.out.println("\nEnter guest details : \n");
@@ -147,6 +163,7 @@ public class HotelBooking {
                 for(Room room:bookedRooms){
                     if(room.getTotalDays()==0) {
                         room.setTotalDays(daysList.get(0));
+                        this.billAmount+=room.calculateRoomRent();
                         daysList.remove(0);
                     }
                 }
@@ -172,11 +189,12 @@ public class HotelBooking {
             case 1:
                 this.viewMyRooms();
                 for(Room room:bookedRooms){
-                    this.billAmount+=room.calculateRoomRent();
+                    this.billAmount+=room.calculateOtherServices();
                     room.cancelBooking();
                 }
                 bookedRooms.clear();
                 guests.clear();
+                System.out.println("\nBooking cancelled...");
                 break;
             default:
                 System.out.println("\nBooking not cancelled...");

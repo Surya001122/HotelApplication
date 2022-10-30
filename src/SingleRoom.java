@@ -14,6 +14,6 @@ public class SingleRoom extends Room{
     public int calculateRoomRent() {
 
         System.out.println("\nBill amount to pay\n\nRoom rent : "+this.getRent()*this.getTotalDays()+"\nOther Services : "+this.getOtherServicesRate());
-        return this.getRent()*this.getTotalDays()+this.getOtherServicesRate();
+        return this.getRent()*this.getTotalDays();
     }
 }

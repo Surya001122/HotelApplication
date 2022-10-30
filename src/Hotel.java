@@ -14,6 +14,7 @@ class Hotel {
     ArrayList<Room> rooms; // Hotel has Rooms(has a relationship)
     ArrayList<Customer> customers; // stores the customers object in the hotel
     ArrayList<HotelBooking> bookings; // stores the booking object for different customers in the hotel....
+    ArrayList<Employee> employees;
     HashMap<String,String> Guests; // stores the guestId and guestName in the hotels...includes the person's name and person's id accompanying the customers in the hotel.
     private int hotelRating; // stores the rating of the hotel;
     public Hotel(String hotelName, String hotelAddress, String hotelMobileNumber, String hotelEmailId) {
@@ -95,6 +96,15 @@ class Hotel {
     public void setCustomers(ArrayList<Customer> customers) {
         this.customers = customers;
     }
+
+    public ArrayList<Employee> getEmployees() {
+        return employees;
+    }
+
+    public void setEmployees(ArrayList<Employee> employees) {
+        this.employees = employees;
+    }
+
     public HashMap<String, String> getGuests() {
         return Guests;
     }
@@ -110,6 +120,15 @@ class Hotel {
     }
     public void addCustomers(Customer customer){
         customers.add(customer);
+    }
+    public void removeCustomers(Customer customer){
+        customers.remove(customer);
+    }
+    public void addEmployees(Employee employee){
+        employees.add(employee);
+    }
+    public void removeEmployees(Employee employee){
+        employees.remove(employee);
     }
     public void displayAllAvailableRooms() {
         for(Room room:rooms){
@@ -137,6 +156,13 @@ class Hotel {
         for(Customer customer:customers){
             if(customer.getCustomerId().equals(customerId) && customer.getCustomerPassword().equals(customerPassword))
                 return customer;
+        }
+        return null;
+    }
+    public Employee getEmployee(String employeeId,String employeePassword){
+        for(Employee employee:employees){
+            if(employee.getEmployeeId().equals(employeeId) && employee.getEmployeePassword().equals(employeePassword))
+                return employee;
         }
         return null;
     }

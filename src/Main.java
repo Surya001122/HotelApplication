@@ -4,29 +4,34 @@ import java.time.LocalDate;
 import java.time.Month;
 import java.time.Period;
 import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeParseException;
 import java.util.*;
 public class Main {
     public static void main(String[] args) {
         Scanner sc = new Scanner(System.in);
         HashMap<String,String>usersLoginInfo = new HashMap<>();
         Hotel hotel = new Hotel("KFC","Chennai","54321","KFC@gmail.com");
-        Admin admin = new Admin("admin1","ADMIN","admin12345");
-        admin.setHotel(hotel);
+        Manager manager = new Manager("admin1","ADMIN","admin123");
+        Chef chef = new Chef("chef1","CHEF","chef123");
+        Menu menu = new Menu();
+        chef.setMenu(menu);
+        manager.addEmployees(chef);
+        manager.setHotel(hotel);
         Customer customer;
         HotelBooking booker;
-        usersLoginInfo.put(admin.getAdminId(), admin.getAdminPassword());
+        usersLoginInfo.put(manager.getEmployeeId(), manager.getEmployeePassword());
         Room room1 = new SingleRoom(1,"Single",1,1,100,1);
         Room room2 = new DoubleRoom(2,"Double",1,2,200,2);
         Room room3 = new DeluxeRoom(3,"Deluxe",1,3,300,3);
         Room room4 = new SingleRoom(4,"Single",1,1,100,4);
         Room room5 = new DoubleRoom(5,"Double",1,2,200,5);
         Room room6 = new DeluxeRoom(6,"Deluxe",1,3,300,6);
-        admin.addRooms(room1);
-        admin.addRooms(room2);
-        admin.addRooms(room3);
-        admin.addRooms(room4);
-        admin.addRooms(room5);
-        admin.addRooms(room6);
+        hotel.addRooms(room1);
+        hotel.addRooms(room2);
+        hotel.addRooms(room3);
+        hotel.addRooms(room4);
+        hotel.addRooms(room5);
+        hotel.addRooms(room6);
         boolean bool = true;
         System.out.println("Start Application.......\n");
         while(bool)
@@ -49,7 +54,7 @@ public class Main {
                     String password = sc.next();
                     customer = new Customer(loginId,name,gender,location,phoneNumber,password);
                     usersLoginInfo.put(customer.getCustomerId(),customer.getCustomerPassword());
-                    admin.addCustomers(customer);
+                    manager.addCustomers(customer);
                     break;
                 case 2:
                     System.out.println("\nEnter your CustomerId : ");
@@ -61,10 +66,10 @@ public class Main {
                         {
                             System.out.println("\n\nCustomer logged in successfully...");
                             boolean customerRun = true;
-                            customer = admin.getHotel().getCustomer(customerId,customerPassword);
+                            customer = manager.getHotel().getCustomer(customerId,customerPassword);
                             booker = hotel.getBooking(customer);
                             while (customerRun) {
-                                System.out.print("\n\n\nEnter 1 to Display Available Rooms\nEnter 2 to book Rooms\nEnter 3 to cancel booking\nEnter 4 to display my room bookings\nEnter 5 to display my guests\nEnter 6 to change my password\nEnter 8 to call Room Service\n\n\nEnter your choice : ");
+                                System.out.print("\n\n\nEnter 1 to Display Available Rooms\nEnter 2 to book Rooms\nEnter 3 to cancel booking\nEnter 4 to display my room bookings\nEnter 5 to display my guests\nEnter 6 to change my password\nEnter 7 to view Menu\nEnter 8 to view my bill\n\n\n\nEnter your choice : ");
                                 int customerChoice = sc.nextInt();
                                 switch (customerChoice) {
                                     case 1:
@@ -87,9 +92,10 @@ public class Main {
                                         usersLoginInfo.replace(customer.getCustomerId(),oldPassword,customer.getCustomerPassword());
                                         break;
                                     case 7:
-                                        customer.viewMyBill(booker);
+                                        chef.displayMenu();
                                         break;
                                     case 8:
+                                        customer.viewMyBill(booker);
                                         break;
                                     default:
                                         customerRun = false;

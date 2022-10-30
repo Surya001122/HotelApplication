@@ -66,7 +66,6 @@ public class Customer {
     public boolean getPaymentStatus() {
         return paymentStatus;
     }
-
     public void setPaymentStatus(boolean paymentStatus) {
         this.paymentStatus = paymentStatus;
     }
