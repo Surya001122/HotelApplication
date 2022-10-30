@@ -46,18 +46,13 @@ public class Admin {
     public void addBookings(HotelBooking booking){
         this.hotel.bookings.add(booking);
     }
-    public void displayBookings(String customerId,String customerPassword){
-        Customer customer = hotel.getCustomer(customerId,customerPassword);
-        if(customer!=null){
-            this.hotel.displayBookings(customer);
-        }
-    }
     public void displayAvailableRooms(){
         this.hotel.displayAllAvailableRooms();
     }
     public void addCustomers(Customer customer){
         this.hotel.addCustomers(customer);
     }
+    public void removeCustomers(Customer customer) {this.hotel.addCustomers(customer); }
     public void addRooms(Room room){
         this.hotel.addRooms(room);
     }

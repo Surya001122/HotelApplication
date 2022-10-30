@@ -114,12 +114,21 @@ class Hotel {
     public void displayAllAvailableRooms() {
         for(Room room:rooms){
             if(!room.getRoomStatus())
-            System.out.println(room.getRoomNumber()+" "+room.getRoomType());
+            System.out.println("\nRoom number : "+room.getRoomNumber()+"     Room type : "+room.getRoomType());
         }
+    }
+    public int totalAvailableRooms(){
+
+        int availableRooms = 0;
+        for(Room room:rooms){
+            if(!room.getRoomStatus())
+                availableRooms+=1;
+        }
+        return availableRooms;
     }
     public Room getRoom(String roomType,int roomNumber){
         for(Room room:rooms){
-            if(room.getRoomNumber()==roomNumber && room.getRoomType().equals(roomType) && !room.getRoomStatus())
+            if(room.getRoomNumber()==roomNumber && room.getRoomType().equals(roomType))
                 return room;
         }
         return null;
@@ -131,13 +140,14 @@ class Hotel {
         }
         return null;
     }
-    public void displayBookings(Customer customer){
-        for(HotelBooking booking : bookings){
-            if(booking.getCustomerId() == customer.getCustomerId()){
-                booking.displayBookingDetails();
-                booking.displayRoomDetails();
-                booking.displayGuestDetails();
+    public HotelBooking getBooking(Customer customer){
+        for(HotelBooking booking:bookings){
+            if(booking.getCustomerId().equals(customer.getCustomerId())){
+                return booking;
             }
         }
+        HotelBooking booking = new HotelBooking(customer.getCustomerId(), customer.getCustomerName(),customer.getCustomerPhoneNumber());
+        this.bookings.add(booking);
+        return booking;
     }
 }
