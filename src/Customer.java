@@ -95,13 +95,19 @@ public class Customer {
     public void viewMyBill(HotelBooking booker){
         booker.viewMyBill();
     }
-    public void callRoomService(Hotel hotel,Chef chef,Customer customer)
+    public void callRoomService(Customer customer,HotelBooking booker,Chef chef)
     {
         System.out.print("\nEnter 1 to make a foodOrder\nEnter 2 to order beds\n\nEnter your choice : ");
         int choice,roomNumber;
-        choice = Integer.parseInt(sc.nextLine().trim());
+        try {
+            choice = sc.nextInt();
+        }
+        catch(NumberFormatException numberFormatException){
+            System.out.println("Enter valid option...Try again..");
+            return;
+        }
         String roomType;
-        Room room;
+        Room room = null;
         switch(choice)
         {
             case 1:
@@ -115,9 +121,56 @@ public class Customer {
                 }
                 System.out.print("\nEnter the room Type : ");
                 roomType = sc.nextLine().trim();
-                room = hotel.getRoom(roomType,roomNumber);
-                if(room!=null && hotel.getBooking(customer).bookedRooms.contains(room)){
-                    room.placeOrder(chef);
+                for(Room bookedRoom : booker.getBookedRooms()){
+                    if(bookedRoom.getRoomNumber()==roomNumber && bookedRoom.getRoomType().equals(roomType)){
+                        room = bookedRoom;
+                        break;
+                    }
+                }
+                if(room != null){
+                    boolean orderRun = true;
+                    int orderChoice;
+                    HashMap<String,Integer>orders = new HashMap<>();
+                    while(orderRun){
+                        System.out.print("\nEnter 1 to continue adding food items\nEnter 2 to place order\nEnter 3 to exit\n\n\nEnter your choice : ");
+                        try {
+                            orderChoice = sc.nextInt();
+                        }
+                        catch(NumberFormatException numberFormatException){
+                            System.out.println("Enter valid option...Please try again..");
+                            continue;
+                        }
+                        switch(orderChoice){
+                            case 1:
+                                System.out.print("\nEnter the food Item : ");
+                                String foodItem = sc.nextLine().trim();
+                                System.out.print("\nEnter the quantity : ");
+                                int foodQuantity;
+                                try {
+                                    foodQuantity = Integer.parseInt(sc.nextLine().trim());
+                                }
+                                catch(NumberFormatException numberFormatException){
+                                    System.out.println("Enter valid option...");
+                                    break;
+                                }
+                                orders.put(foodItem,foodQuantity);
+                                break;
+                            case 2:
+                                System.out.println("\nOrder completed...");
+                                booker.setFoodOrdersAmount(chef.takeOrder(orders));
+                                booker.setPaymentStatus(true);
+                                booker.viewMyBill();
+                                booker.setPaymentStatus(customer.payBill(booker.getFoodOrdersAmount()));
+                                if(!booker.getPaymentStatus()) {
+                                    booker.setFoodOrdersAmount(0);
+                                    booker.viewMyBill();
+                                }
+                                break;
+                            default:
+                                orderRun = false;
+                                break;
+                        }
+                    }
                 }
                 else{
                     System.out.println("Please enter valid room information...Please try again...");
@@ -134,15 +187,13 @@ public class Customer {
                 }
                 System.out.print("\nEnter the room Type : ");
                 roomType = sc.nextLine().trim();
-                room = hotel.getRoom(roomType,roomNumber);
-                if(room!=null && hotel.getBooking(customer).bookedRooms.contains(room)){
-                    System.out.println("\nExtra bed added to room...");
-                    hotel.getBooking(customer).setPaymentStatus(true);
-                    room.orderExtraBeds();
-                }
-                else{
-                    System.out.println("Please enter valid room information...Please try again...");
-                }
+//                if(roomType)
+//                {
+//
+//                }
+//                else{
+//                    System.out.println("Please enter valid room information...Please try again...");
+//                }
                 break;
             default:
                 break;

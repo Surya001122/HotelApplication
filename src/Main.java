@@ -85,7 +85,7 @@ public class Main {
                             customer = manager.getHotel().getCustomer(customerId,customerPassword);
                             booker = hotel.getBooking(customer);
                             while (customerRun) {
-                                System.out.print("\n\n\nEnter 1 to Display Available Rooms\nEnter 2 to book Rooms\nEnter 3 to cancel booking\nEnter 4 to display my room bookings\nEnter 5 to display my guests\nEnter 6 to change my password\nEnter 7 to view Menu\nEnter 8 to call room service\nEnter 9 to view my bill\n\n\n\nEnter your choice : ");
+                                System.out.print("\n\n\nEnter 1 to Display Available Rooms\nEnter 2 to book Rooms\nEnter 3 to cancel booking\nEnter 4 to display my room bookings\nEnter 5 to display my guests\nEnter 6 to change my password\nEnter 7 to view Menu\nEnter 8 to call room service\nEnter 9 to view my bill\nEnter 10 to exit\n\n\n\nEnter your choice : ");
                                 int customerChoice;
                                 try {
                                     customerChoice = Integer.parseInt(sc.nextLine().trim());
@@ -118,7 +118,7 @@ public class Main {
                                         chef.displayMenu();
                                         break;
                                     case 8:
-                                        customer.callRoomService(hotel,chef,customer);
+                                        customer.callRoomService(customer,hotel.getBooking(customer),chef);
                                         break;
                                     case 9:
                                         customer.viewMyBill(booker);

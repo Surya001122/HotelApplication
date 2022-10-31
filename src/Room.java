@@ -1,5 +1,4 @@
 import javafx.scene.input.InputMethodTextRun;
-
 import java.time.LocalDate;
 import java.util.*;
 import java.time.LocalDateTime;
@@ -158,57 +157,8 @@ public abstract class Room {
     }
     public void placeOrder(Chef chef)
     {
-        System.out.print("\nEnter 1 to place Order\nEnter 2 to exit\n\n\nEnter your choice : ");
-        int choice;
-        try {
-            choice = Integer.parseInt(sc.nextLine().trim());
-        }
-        catch(NumberFormatException numberFormatException){
-            System.out.println("Enter valid option...Please try again...");
-            return;
-        }
-        HashMap<String,Integer> orders = new HashMap<>();
-        switch(choice){
-            case 1:
-                boolean orderRun = true;
-                while(orderRun){
-                    System.out.print("\nEnter 1 to continue adding food items\nEnter 2 to place order\nEnter 3 to exit\n\n\nEnter your choice :");
-                    int orderChoice;
-                    try {
-                        orderChoice = Integer.parseInt(sc.nextLine().trim());
-                    }
-                    catch(NumberFormatException numberFormatException){
-                        System.out.println("Enter valid option...Please try again..");
-                        continue;
-                    }
-                    switch(orderChoice){
-                        case 1:
-                            System.out.print("\nEnter the food Item : ");
-                            String foodItem = sc.nextLine().trim();
-                            System.out.print("\nEnter the quantity : ");
-                            int foodQuantity;
-                            try {
-                                foodQuantity = Integer.parseInt(sc.nextLine().trim());
-                            }
-                            catch(NumberFormatException numberFormatException){
-                                System.out.println("Enter valid option...");
-                                break;
-                            }
-                            orders.put(foodItem,foodQuantity);
-                            break;
-                        case 2:
-                            System.out.println("Order completed...");
-                            this.foodOrdersAmount+= chef.takeOrder(orders);
-                            break;
-                        default:
-                            orderRun = false;
-                            break;
-                    }
-                }
-                break;
-            default:
-                break;
-        }
+
+
     }
     abstract void viewAvailableFacilities();// abstract method, as the availability of facilities changes for different rooms and there is no need to implement this method in general class Room.
     abstract int calculateRoomRent(); //abstract method, as the rent differ for each room based on the facilities and the implementation of calculating the rent is hidden.

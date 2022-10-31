@@ -12,8 +12,6 @@ public class SingleRoom extends Room{
     }
     @Override
     public int calculateRoomRent() {
-
-        System.out.println("\nBill amount to pay\n\nRoom number : "+this.getRoomNumber()+"\nRoom type: "+this.getRoomType()+"\nRoom rent : "+this.getRent()*this.getTotalDays());
         return this.getRent()*this.getTotalDays();
     }
 }

@@ -15,6 +15,8 @@ public class HotelBooking {
     private String customerName; // stores the name of the customer.
     private String customerPhoneNumber; // stores the mobile number of the customer.
     private int billAmount;
+    private int foodOrdersAmount;
+    private int otherServicesAmount;
     HashMap<Integer,String> guests; // stores the guestId and guestName in the rooms booked...includes the person's name and person's id accompanying the customers.
     ArrayList<Room> bookedRooms; // Integer represents the days at which the room will be in occupied status.....Room represents the total rooms booked by the customer.
     private boolean paymentStatus;
@@ -26,7 +28,9 @@ public class HotelBooking {
         this.customerPhoneNumber = customerPhoneNumber;
         guests = new HashMap<>();
         bookedRooms = new ArrayList<>();
-        this.billAmount = 0;
+        billAmount = 0;
+        foodOrdersAmount = 0;
+        otherServicesAmount = 0;
     }
 
     public int getBookingId() {
@@ -67,6 +71,22 @@ public class HotelBooking {
 
     public void setBillAmount(int billAmount) {
         this.billAmount = billAmount;
+    }
+
+    public int getFoodOrdersAmount() {
+        return foodOrdersAmount;
+    }
+
+    public void setFoodOrdersAmount(int foodOrdersAmount) {
+        this.foodOrdersAmount = foodOrdersAmount;
+    }
+
+    public int getOtherServicesAmount() {
+        return otherServicesAmount;
+    }
+
+    public void setOtherServicesAmount(int otherServicesAmount) {
+        this.otherServicesAmount = otherServicesAmount;
     }
 
     public boolean getPaymentStatus() {
@@ -155,7 +175,6 @@ public class HotelBooking {
                         continue;
                     }
                     rooms.add(room);
-                    room.bookRoom(customer);
                     System.out.println("\nEnter guest details : \n");
                     System.out.println("\nEnter total guests : ");
                     int guests;
@@ -180,7 +199,7 @@ public class HotelBooking {
                 room.setTotalDays(daysList.get(0));
                 daysList.remove(0);
                 this.billAmount += room.calculateRoomRent();
-
+                viewMyBill();
             }
             System.out.println("\nEnter 1 to pay the bill Amount\nEnter 2 to exit\n\n\nEnter your choice");
             int paymentChoice = sc.nextInt();
@@ -207,6 +226,7 @@ public class HotelBooking {
                 }
                 this.billAmount = 0;
                 this.paymentStatus = false;
+                viewMyBill();
             }
         }
         else
@@ -242,11 +262,12 @@ public class HotelBooking {
                 Boolean repeat = true;
                 int roomNumber;
                 while(repeat) {
-                    System.out.println("Enter 1 to continue cancel booking\nEnter 2 to exit\n");
+                    System.out.println("\nEnter 1 to continue cancel booking\nEnter 2 to exit\n");
                     choice = Integer.parseInt(sc.nextLine().trim());
                     switch(choice){
                         case 1:
                             this.viewMyRooms();
+                            System.out.println("\nEnter 1 to continue cancel booking\nEnter 2 to exit\n");
                             System.out.println("Enter the roomNumber to cancel : ");
                             try {
                                 roomNumber = Integer.parseInt(sc.nextLine().trim());
@@ -308,7 +329,9 @@ public class HotelBooking {
         }
     }
     public void viewMyBill(){
-        System.out.println("Total due Amount : "+this.billAmount);
-        System.out.println("Payment Status : "+(this.paymentStatus?"NOT PAID" : "PAID"));
+        System.out.println("\nTotal due Amount : "+this.billAmount);
+        System.out.println("\nTotal foodOrders Amount : "+this.foodOrdersAmount);
+        System.out.println("\nTotal otherServices Amount : "+this.otherServicesAmount);
+        System.out.println("\nPayment Status : "+(this.paymentStatus?"NOT PAID" : "PAID"));
     }
 }
