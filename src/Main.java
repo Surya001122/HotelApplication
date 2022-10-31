@@ -40,7 +40,7 @@ public class Main {
         System.out.println("Start Application.......\n");
         while(bool)
         {
-            System.out.print("1.Customer SignIn\n2.Customer Login\n3.Manager Login\n4.Employee Login\n5.Exit\n\n\nEnter your choice : ");
+            System.out.print("1.Customer SignUp\n2.Customer Login\n3.Manager Login\n4.Employee Login\n5.Exit\n\n\nEnter your choice : ");
             int login;
             try{
                 login = Integer.parseInt(sc.nextLine().trim());
@@ -63,9 +63,14 @@ public class Main {
                     String phoneNumber = sc.nextLine().trim();
                     System.out.print("\nEnter your password : ");
                     String password = sc.nextLine().trim();
-                    customer = new Customer(loginId,name,gender,location,phoneNumber,password);
-                    usersLoginInfo.put(customer.getCustomerId(),customer.getCustomerPassword());
-                    hotel.addCustomers(customer);
+                    if(usersLoginInfo.containsKey(loginId)){
+                        System.out.println("User already exists..Please log in..");
+                    }
+                    else {
+                        customer = new Customer(loginId, name, gender, location, phoneNumber, password);
+                        usersLoginInfo.put(customer.getCustomerId(), customer.getCustomerPassword());
+                        hotel.addCustomers(customer);
+                    }
                     break;
                 case 2:
                     System.out.println("\nEnter your CustomerId : ");

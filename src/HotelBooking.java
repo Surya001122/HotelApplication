@@ -1,3 +1,5 @@
+import com.sun.org.apache.xpath.internal.operations.Bool;
+
 import java.sql.Array;
 import java.time.LocalDate;
 import java.time.Period;
@@ -171,6 +173,7 @@ public class HotelBooking {
                         guests--;
                     }
                     System.out.println("\n\nBooked successfully\n");
+                    this.paymentStatus = true;
                     totalRooms--;
                 }
             }
@@ -204,7 +207,7 @@ public class HotelBooking {
     }
     public void cancelBooking(Hotel hotel) {
         sc = new Scanner(System.in);
-        System.out.println("\n\nEnter 1 to cancel all rooms\nEnter 2 to exit\n");
+        System.out.println("\n\nEnter 1 to cancel all rooms\nEnter 2 to cancel certain rooms\nEnter 3 to exit\n");
         int choice;
         try {
             choice = Integer.parseInt(sc.nextLine().trim());
@@ -225,8 +228,49 @@ public class HotelBooking {
                 guests.clear();
                 System.out.println("\nBooking cancelled...");
                 break;
-            default:
+            case 2:
+                Boolean repeat = true;
+                int roomNumber;
+                while(repeat) {
+                    System.out.println("Enter 1 to continue cancel booking\nEnter 2 to exit\n");
+                    choice = Integer.parseInt(sc.nextLine().trim());
+                    switch(choice){
+                        case 1:
+                            this.viewMyRooms();
+                            System.out.println("Enter the roomNumber to cancel : ");
+                            try {
+                                roomNumber = Integer.parseInt(sc.nextLine().trim());
+                            }
+                            catch (NumberFormatException numberFormatException){
+                                System.out.println("Enter valid room number...");
+                                break;
+                            }
+                            System.out.println("Enter the roomType to cancel : ");
+                            String roomType = sc.nextLine().trim();
+                            Room room = hotel.getRoom(roomType,roomNumber);
+                            if (bookedRooms.contains(room)) {
+                                this.billAmount+= room.calculateOtherServices();
+                                this.billAmount+= room.calculateFoodOrdersAmount();
+                                room.cancelBooking();
+                                bookedRooms.remove(room);
+                            } else {
+                                System.out.println("Enter valid room information..Please try again...");
+                            }
+                            break;
+                        case 2:
+                            repeat = false;
+                            break;
+                        default:
+                            System.out.println("Enter valid option...");
+                            break;
+                    }
+                }
+                break;
+            case 3:
                 System.out.println("\nBooking not cancelled...");
+                break;
+            default:
+                System.out.println("Invalid option...");
                 break;
         }
     }
@@ -246,7 +290,7 @@ public class HotelBooking {
         if(bookedRooms.size()>0) {
             System.out.println("\nRooms booked by Customer\n*********************************");
             for (Room room : bookedRooms) {
-                System.out.println("\nRoom Type : " + room.getRoomType() + "   Room Number : " + room.getRoomNumber()+"  Total Days : "+room.getTotalDays());
+                System.out.println("\nRoom Type : " + room.getRoomType() + "   Room Number : " + room.getRoomNumber()+"  Total Days : "+room.getTotalDays()+"  Room rent for total days : "+room.calculateRoomRent());
             }
         }
         else {
@@ -255,5 +299,6 @@ public class HotelBooking {
     }
     public void viewMyBill(){
         System.out.println("Total due Amount : "+this.billAmount);
+        System.out.println("Payment Status : "+(this.paymentStatus?"NOT PAID" : "PAID"));
     }
 }

@@ -7,7 +7,6 @@ public class Customer {
     private String customerAddress;
     private String customerPhoneNumber;
     private String customerPassword;
-    private boolean paymentStatus;
     public Customer(String customerId, String customerName, String gender, String customerAddress, String customerPhoneNumber, String customerPassword) {
         sc = new Scanner(System.in);
         this.customerId = customerId;
@@ -63,14 +62,6 @@ public class Customer {
     public void setCustomerPassword(String customerPassword) {
         this.customerPassword = customerPassword;
     }
-
-    public boolean getPaymentStatus() {
-        return paymentStatus;
-    }
-    public void setPaymentStatus(boolean paymentStatus) {
-        this.paymentStatus = paymentStatus;
-    }
-
     public void displayAvailableRooms(HotelBooking booker, Hotel hotel){
         booker.displayAvailableRooms(hotel);
     }

@@ -3,7 +3,6 @@ public class Manager extends Employee {
     private Hotel hotel;
     String employeeId,employeePassword,customerId,customerPassword;
     Scanner sc;
-
     public Manager(String employeeId, String employeeName, String employeePassword) {
         super(employeeId, employeeName, employeePassword);
         sc = new Scanner(System.in);
@@ -31,6 +30,7 @@ public class Manager extends Employee {
         Customer customer = this.hotel.getCustomer(customerId,customerPassword);
         if(customer!=null){
             this.hotel.addCustomers(customer);
+            usersLoginInfo.put(customerId,customerPassword);
             System.out.println("\nCustomer added in hotel");
         }
         else{
@@ -45,6 +45,7 @@ public class Manager extends Employee {
         Customer customer = this.hotel.getCustomer(customerId,customerPassword);
         if(customer!=null){
             this.hotel.removeCustomers(customer);
+            usersLoginInfo.remove(customerId,customerPassword);
             System.out.println("\nCustomer removed from hotel");
         }
         else{
@@ -60,6 +61,7 @@ public class Manager extends Employee {
         if(employee!=null){
             this.hotel.addEmployees(employee);
             System.out.println("\nEmployee added in hotel");
+            usersLoginInfo.put(employeeId,employeePassword);
         }
         else{
             System.out.println("\nYou have entered wrong id and password...Please try again...");
@@ -73,6 +75,7 @@ public class Manager extends Employee {
         Employee employee = this.hotel.getEmployee(employeeId,employeePassword);
         if(employee!=null){
             this.hotel.removeEmployees(employee);
+            usersLoginInfo.remove(employeeId,employeePassword);
             System.out.println("\nEmployee removed from hotel");
 
         }
