@@ -102,7 +102,14 @@ public class HotelBooking {
         sc = new Scanner(System.in);
         System.out.println("Total rooms available : "+hotel.totalAvailableRooms());
         System.out.println("Enter number of rooms for booking : ");
-        int totalRooms = sc.nextInt();
+        int totalRooms;
+        try {
+            totalRooms = Integer.parseInt(sc.nextLine().trim());
+        }
+        catch(NumberFormatException numberFormatException){
+            System.out.println("Enter valid option.Please try again...");
+            return;
+        }
         ArrayList<Room> rooms = new ArrayList<>();
         ArrayList<Integer> daysList = new ArrayList<>();
         HashMap<Integer,String> otherCustomers = new HashMap<>();
@@ -112,9 +119,16 @@ public class HotelBooking {
                 System.out.println("\n\nThe available rooms are : ");
                 hotel.displayAllAvailableRooms();
                 System.out.print("\n\n\nEnter room type : ");
-                String roomType = sc.next();
+                String roomType = sc.nextLine().trim();
                 System.out.print("\nEnter room number : ");
-                int roomNumber = sc.nextInt();
+                int roomNumber;
+                try {
+                    roomNumber = Integer.parseInt(sc.nextLine().trim());
+                }
+                catch(NumberFormatException numberFormatException){
+                    System.out.println("Enter valid option.Please try again...");
+                    continue;
+                }
                 Room room = hotel.getRoom(roomType, roomNumber);
                 if (room == null || room.getRoomStatus()) {
                     System.out.println("Enter valid room information....\n");
@@ -123,9 +137,9 @@ public class HotelBooking {
                     room.viewAvailableFacilities();
                     try{
                         System.out.print("\nEnter fromDate : ");
-                        String fromDate = sc.next();
+                        String fromDate = sc.nextLine().trim();
                         System.out.print("\nEnter toDate : ");
-                        String toDate = sc.next();
+                        String toDate = sc.nextLine().trim();
                         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd-MM-yyyy");
                         LocalDate Date1 = LocalDate.parse(fromDate,formatter);
                         LocalDate Date2 = LocalDate.parse(toDate,formatter);
@@ -142,10 +156,17 @@ public class HotelBooking {
                     room.bookRoom(customer);
                     System.out.println("\nEnter guest details : \n");
                     System.out.println("\nEnter total guests : ");
-                    int guests = sc.nextInt();
+                    int guests;
+                    try {
+                        guests = Integer.parseInt(sc.nextLine().trim());
+                    }
+                    catch(NumberFormatException numberFormatException){
+                        System.out.println("Enter valid option...");
+                        continue;
+                    }
                     while (guests > 0) {
                         System.out.print("\nEnter guest name :");
-                        String guestName = sc.next();
+                        String guestName = sc.nextLine().trim();
                         otherCustomers.put(guestId++, guestName);
                         guests--;
                     }
@@ -163,7 +184,7 @@ public class HotelBooking {
                 for(Room room:bookedRooms){
                     if(room.getTotalDays()==0) {
                         room.setTotalDays(daysList.get(0));
-                        this.billAmount+=room.calculateRoomRent();
+                        this.billAmount += room.calculateRoomRent();
                         daysList.remove(0);
                     }
                 }
@@ -184,7 +205,14 @@ public class HotelBooking {
     public void cancelBooking(Hotel hotel) {
         sc = new Scanner(System.in);
         System.out.println("\n\nEnter 1 to cancel all rooms\nEnter 2 to exit\n");
-        int choice = sc.nextInt();
+        int choice;
+        try {
+            choice = Integer.parseInt(sc.nextLine().trim());
+        }
+        catch(NumberFormatException numberFormatException){
+            System.out.println("Enter valid option...");
+            return;
+        }
         switch(choice){
             case 1:
                 this.viewMyRooms();

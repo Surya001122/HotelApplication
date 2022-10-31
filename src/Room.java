@@ -1,3 +1,5 @@
+import javafx.scene.input.InputMethodTextRun;
+
 import java.time.LocalDate;
 import java.util.*;
 import java.time.LocalDateTime;
@@ -157,20 +159,41 @@ public abstract class Room {
     public void placeOrder(Chef chef)
     {
         System.out.print("\nEnter 1 to place Order\nEnter 2 to exit\n\n\nEnter your choice : ");
-        int choice = sc.nextInt();
+        int choice;
+        try {
+            choice = Integer.parseInt(sc.nextLine().trim());
+        }
+        catch(NumberFormatException numberFormatException){
+            System.out.println("Enter valid option...Please try again...");
+            return;
+        }
         HashMap<String,Integer> orders = new HashMap<>();
         switch(choice){
             case 1:
                 boolean orderRun = true;
                 while(orderRun){
                     System.out.print("\nEnter 1 to continue adding food items\nEnter 2 to place order\nEnter 3 to exit\n\n\nEnter your choice :");
-                    int orderChoice = sc.nextInt();
+                    int orderChoice;
+                    try {
+                        orderChoice = Integer.parseInt(sc.nextLine().trim());
+                    }
+                    catch(NumberFormatException numberFormatException){
+                        System.out.println("Enter valid option...Please try again..");
+                        continue;
+                    }
                     switch(orderChoice){
                         case 1:
                             System.out.print("\nEnter the food Item : ");
-                            String foodItem = sc.next();
+                            String foodItem = sc.nextLine().trim();
                             System.out.print("\nEnter the quantity : ");
-                            int foodQuantity = sc.nextInt();
+                            int foodQuantity;
+                            try {
+                                foodQuantity = Integer.parseInt(sc.nextLine().trim());
+                            }
+                            catch(NumberFormatException numberFormatException){
+                                System.out.println("Enter valid option...");
+                                break;
+                            }
                             orders.put(foodItem,foodQuantity);
                             break;
                         case 2:

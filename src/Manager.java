@@ -25,9 +25,9 @@ public class Manager extends Employee {
     }
     public void addCustomers(HashMap<String,String>usersLoginInfo){
         System.out.print("\nEnter CustomerID : ");
-        customerId = sc.next();
+        customerId = sc.nextLine().trim();
         System.out.print("\nEnter CustomerPassword : ");
-        customerPassword = sc.next();
+        customerPassword = sc.nextLine().trim();
         Customer customer = this.hotel.getCustomer(customerId,customerPassword);
         if(customer!=null){
             this.hotel.addCustomers(customer);
@@ -39,9 +39,9 @@ public class Manager extends Employee {
     }
     public void removeCustomers(HashMap<String,String>usersLoginInfo) {
         System.out.print("\nEnter CustomerID : ");
-        customerId = sc.next();
+        customerId = sc.nextLine().trim();
         System.out.print("\nEnter CustomerPassword : ");
-        customerPassword = sc.next();
+        customerPassword = sc.nextLine().trim();
         Customer customer = this.hotel.getCustomer(customerId,customerPassword);
         if(customer!=null){
             this.hotel.removeCustomers(customer);
@@ -53,9 +53,9 @@ public class Manager extends Employee {
     }
     public void addEmployees(HashMap<String, String> usersLoginInfo){
         System.out.print("\nEnter EmployeeID : ");
-        employeeId = sc.next();
+        employeeId = sc.nextLine().trim();
         System.out.print("\nEnter EmployeePassword : ");
-        employeePassword = sc.next();
+        employeePassword = sc.nextLine().trim();
         Employee employee = this.hotel.getEmployee(employeeId,employeePassword);
         if(employee!=null){
             this.hotel.addEmployees(employee);
@@ -67,9 +67,9 @@ public class Manager extends Employee {
     }
     public void removeEmployees(HashMap<String,String>usersLoginInfo){
         System.out.print("\nEnter EmployeeID : ");
-        employeeId = sc.next();
+        employeeId = sc.nextLine().trim();
         System.out.print("\nEnter EmployeePassword : ");
-        employeePassword = sc.next();
+        employeePassword = sc.nextLine().trim();
         Employee employee = this.hotel.getEmployee(employeeId,employeePassword);
         if(employee!=null){
             this.hotel.removeEmployees(employee);
@@ -83,9 +83,9 @@ public class Manager extends Employee {
     public void viewCustomers()
     {
         System.out.print("\nEnter CustomerID : ");
-        customerId = sc.next();
+        customerId = sc.nextLine().trim();
         System.out.print("\nEnter CustomerPassword : ");
-        customerPassword = sc.next();
+        customerPassword = sc.nextLine().trim();
         Customer customer = this.hotel.getCustomer(customerId,customerPassword);
         if(customer!=null){
             System.out.println("\nCustomer ID : "+customer.getCustomerId()+"  Customer Name : "+customer.getCustomerName()+"  Customer Password : "+customer.getCustomerPassword()+"  CustomerNumber : "+customer.getCustomerPhoneNumber());
@@ -97,9 +97,9 @@ public class Manager extends Employee {
     public void viewEmployees()
     {
         System.out.print("\nEnter EmployeeID : ");
-        employeeId = sc.next();
+        employeeId = sc.nextLine().trim();
         System.out.print("\nEnter EmployeePassword : ");
-        employeePassword = sc.next();
+        employeePassword = sc.nextLine().trim();
         Employee employee = this.hotel.getEmployee(employeeId,employeePassword);
         if(employee!=null){
             System.out.println("\nCustomer ID : "+employee.getEmployeeId()+"  Customer Name : "+employee.getEmployeeName()+"  Customer Password : "+employee.getEmployeePassword());

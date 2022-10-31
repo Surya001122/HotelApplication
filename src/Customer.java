@@ -88,12 +88,12 @@ public class Customer {
     }
     public String changeMyPassword(){
         System.out.println("Enter your id : " );
-        String id = sc.next();
+        String id = sc.nextLine().trim();
         System.out.print("Enter your old Password : ");
-        String oldPassword = sc.next();
+        String oldPassword = sc.nextLine().trim();
         if(id.equals(this.customerId) && oldPassword.equals(this.customerPassword)){
             System.out.print("\nEnter your new password : ");
-            String newPassword = sc.next();
+            String newPassword = sc.nextLine().trim();
             this.setCustomerPassword(newPassword);
         }
         else{
@@ -107,16 +107,23 @@ public class Customer {
     public void callRoomService(Hotel hotel,Chef chef,Customer customer)
     {
         System.out.print("\nEnter 1 to make a foodOrder\nEnter 2 to order beds\n\nEnter your choice : ");
-        int choice = sc.nextInt(),roomNumber;
+        int choice,roomNumber;
+        choice = Integer.parseInt(sc.nextLine().trim());
         String roomType;
         Room room;
         switch(choice)
         {
             case 1:
                 System.out.print("\nEnter room Number : ");
-                roomNumber = sc.nextInt();
+                try {
+                    roomNumber = Integer.parseInt(sc.nextLine().trim());
+                }
+                catch(NumberFormatException numberFormatException){
+                    System.out.println("Enter valid option...Try again...");
+                    break;
+                }
                 System.out.print("\nEnter the room Type : ");
-                roomType = sc.next();
+                roomType = sc.nextLine().trim();
                 room = hotel.getRoom(roomType,roomNumber);
                 if(room!=null && hotel.getBooking(customer).bookedRooms.contains(room)){
                     room.placeOrder(chef);
@@ -127,9 +134,15 @@ public class Customer {
                 break;
             case 2:
                 System.out.print("\nEnter room Number : ");
-                roomNumber = sc.nextInt();
+                try {
+                    roomNumber = Integer.parseInt(sc.nextLine().trim());
+                }
+                catch(NumberFormatException numberFormatException){
+                    System.out.println("Enter valid option...Try again...");
+                    break;
+                }
                 System.out.print("\nEnter the room Type : ");
-                roomType = sc.next();
+                roomType = sc.nextLine().trim();
                 room = hotel.getRoom(roomType,roomNumber);
                 if(room!=null && hotel.getBooking(customer).bookedRooms.contains(room)){
                     System.out.println("\nExtra bed added to room...");

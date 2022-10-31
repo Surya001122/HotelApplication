@@ -41,31 +41,38 @@ public class Main {
         while(bool)
         {
             System.out.print("1.Customer SignIn\n2.Customer Login\n3.Manager Login\n4.Employee Login\n5.Exit\n\n\nEnter your choice : ");
-            int login = sc.nextInt();
+            int login;
+            try{
+                login = Integer.parseInt(sc.nextLine().trim());
+            }
+            catch(NumberFormatException numberFormatException){
+                System.out.println("Enter valid option...");
+                continue;
+            }
             switch(login) {
                 case 1:
                     System.out.print("\n\nEnter your id : ");
-                    String loginId = sc.next();
+                    String loginId = sc.nextLine().trim();
                     System.out.print("\nEnter your name : ");
-                    String name = sc.next();
+                    String name = sc.nextLine().trim();
                     System.out.print("\nEnter your gender : ");
-                    String gender = sc.next();
+                    String gender = sc.nextLine().trim();
                     System.out.print("\nEnter your location : ");
-                    String location = sc.next();
+                    String location = sc.nextLine().trim();
                     System.out.print("\nEnter your mobileNumber : ");
-                    String phoneNumber = sc.next();
+                    String phoneNumber = sc.nextLine().trim();
                     System.out.print("\nEnter your password : ");
-                    String password = sc.next();
+                    String password = sc.nextLine().trim();
                     customer = new Customer(loginId,name,gender,location,phoneNumber,password);
                     usersLoginInfo.put(customer.getCustomerId(),customer.getCustomerPassword());
                     hotel.addCustomers(customer);
                     break;
                 case 2:
                     System.out.println("\nEnter your CustomerId : ");
-                    String customerId = sc.next();
+                    String customerId = sc.nextLine().trim();
                     if (usersLoginInfo.containsKey(customerId)) {
                         System.out.println("\nEnter your password : ");
-                        String customerPassword = sc.next();
+                        String customerPassword = sc.nextLine().trim();
                         if(usersLoginInfo.get(customerId).equals(customerPassword))
                         {
                             System.out.println("\n\nCustomer logged in successfully...");
@@ -74,7 +81,14 @@ public class Main {
                             booker = hotel.getBooking(customer);
                             while (customerRun) {
                                 System.out.print("\n\n\nEnter 1 to Display Available Rooms\nEnter 2 to book Rooms\nEnter 3 to cancel booking\nEnter 4 to display my room bookings\nEnter 5 to display my guests\nEnter 6 to change my password\nEnter 7 to view Menu\nEnter 8 to call room service\nEnter 9 to view my bill\n\n\n\nEnter your choice : ");
-                                int customerChoice = sc.nextInt();
+                                int customerChoice;
+                                try {
+                                    customerChoice = Integer.parseInt(sc.nextLine().trim());
+                                }
+                                catch(NumberFormatException numberFormatException){
+                                    System.out.println("Enter valid option...");
+                                    continue;
+                                }
                                 switch (customerChoice) {
                                     case 1:
                                         customer.displayAvailableRooms(booker,hotel);
@@ -104,9 +118,13 @@ public class Main {
                                     case 9:
                                         customer.viewMyBill(booker);
                                         break;
-                                    default:
+                                    case 10:
                                         customerRun = false;
                                         System.out.println("Logged out successfully...");
+                                        break;
+                                    default:
+                                        customerRun = false;
+                                        System.out.println("Invalid option...");
                                         break;
                                 }
                             }
@@ -123,17 +141,31 @@ public class Main {
                     break;
                 case 3:
                     System.out.print("\nEnter your ManagerID : ");
-                    String managerId = sc.next();
+                    String managerId = sc.nextLine().trim();
                     if (usersLoginInfo.containsKey(managerId)) {
                         System.out.print("\nEnter your ManagerPassword : ");
-                        String managerPassword = sc.next();
+                        String managerPassword = sc.nextLine().trim();
                         if(usersLoginInfo.get(managerId).equals(managerPassword))
                         {
                             System.out.println("\n\nManager logged in successfully...");
                             boolean managerRun = true;
                             while(managerRun){
-                                System.out.print("\nEnter 1 to add Employees in hotel\nEnter 2 to remove Employees from hotel\nEnter 3 to add customers in hotel\nEnter 4 to remove Customers from hotel\nEnter 5 to view customers in hotel\nEnter 6 to view employees in hotel\n\n\nEnter your choice : ");
-                                int managerChoice = sc.nextInt();
+                                System.out.print("\nEnter 1 to add Employees in hotel\n" +
+                                        "Enter 2 to remove Employees from hotel\n" +
+                                        "Enter 3 to add customers in hotel\n" +
+                                        "Enter 4 to remove Customers from hotel\n" +
+                                        "Enter 5 to view customers in hotel\n" +
+                                        "Enter 6 to view employees in hotel\n" +
+                                        "Enter 7 to exit\n\n\n" +
+                                        "Enter your choice : ");
+                                int managerChoice;
+                                try{
+                                    managerChoice = Integer.parseInt(sc.nextLine().trim());
+                                }
+                                catch(NumberFormatException numberFormatException){
+                                    System.out.println("Enter valid option...");
+                                    continue;
+                                }
                                 switch(managerChoice){
                                     case 1:
                                         manager.addEmployees(usersLoginInfo);
@@ -153,9 +185,13 @@ public class Main {
                                     case 6:
                                         manager.viewCustomers();
                                         break;
-                                    default:
+                                    case 7:
                                         managerRun = false;
                                         System.out.println("Logged out successfully...");
+                                        break;
+                                    default:
+                                        managerRun = false;
+                                        System.out.println("Invalid option...");
                                         break;
                                 }
                             }
@@ -172,17 +208,24 @@ public class Main {
                     break;
                 case 4:
                     System.out.print("\nEnter your EmployeeID : ");
-                    String employeeId = sc.next();
+                    String employeeId = sc.nextLine().trim();
                     if (usersLoginInfo.containsKey(employeeId)) {
                         System.out.print("\nEnter your EmployeePassword : ");
-                        String employeePassword = sc.next();
+                        String employeePassword = sc.nextLine().trim();
                         if(usersLoginInfo.get(employeeId).equals(employeePassword))
                         {
                             System.out.println("\n\nEmployee logged in successfully...");
                             boolean employeeRun = true;
                             while(employeeRun){
                                 System.out.println("\nEnter 1 to display menu\nEnter 2 to change menu\nEnter 3 to exit\n\n\nEnter your choice :");
-                                int employeeChoice = sc.nextInt();
+                                int employeeChoice;
+                                try{
+                                    employeeChoice = Integer.parseInt(sc.nextLine().trim());
+                                }
+                                catch(NumberFormatException numberFormatException){
+                                    System.out.println("Enter valid option...");
+                                    continue;
+                                }
                                 switch(employeeChoice){
                                     case 1:
                                         chef.displayMenu();
@@ -190,9 +233,13 @@ public class Main {
                                     case 2:
                                         chef.changeMenu();
                                         break;
-                                    default:
+                                    case 3:
                                         employeeRun = false;
                                         System.out.println("Logged out successfully...");
+                                        break;
+                                    default:
+                                        employeeRun = false;
+                                        System.out.println("Invalid option...");
                                         break;
                                 }
                             }

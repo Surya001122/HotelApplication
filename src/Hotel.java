@@ -15,7 +15,6 @@ class Hotel {
     ArrayList<Customer> customers; // stores the customers object in the hotel
     ArrayList<HotelBooking> bookings; // stores the booking object for different customers in the hotel....
     ArrayList<Employee> employees;
-    HashMap<String,String> Guests; // stores the guestId and guestName in the hotels...includes the person's name and person's id accompanying the customers in the hotel.
     private int hotelRating; // stores the rating of the hotel;
     public Hotel(String hotelName, String hotelAddress, String hotelMobileNumber, String hotelEmailId) {
         this.hotelName = hotelName;
@@ -105,19 +104,8 @@ class Hotel {
     public void setEmployees(ArrayList<Employee> employees) {
         this.employees = employees;
     }
-
-    public HashMap<String, String> getGuests() {
-        return Guests;
-    }
-
-    public void setGuests(HashMap<String, String> guests) {
-        Guests = guests;
-    }
     public void addRooms(Room room){
         rooms.add(room);
-    }
-    public void addGuests(String guestId, String guestName) {
-        Guests.put(guestId,guestName);
     }
     public void addCustomers(Customer customer){
         customers.add(customer);
