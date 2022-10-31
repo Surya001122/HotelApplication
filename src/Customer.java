@@ -147,4 +147,23 @@ public class Customer {
                 break;
         }
     }
+    public boolean payBill(int billAmount,boolean paymentStatus){
+        System.out.println("\nEnter 1 to pay the amount\nEnter 2 to cancel payment\n\n\nEnter your choice");
+        int paymentChoice = sc.nextInt();
+        switch(paymentChoice){
+            case 1:
+                System.out.println("\nPayment successful..");
+                paymentStatus = false;
+                break;
+            case 2:
+                System.out.println("\nPayment cancelled...");
+                paymentStatus = true;
+                break;
+            default:
+                System.out.println("\nEnter valid option...");
+                paymentStatus = true;
+                break;
+        }
+        return paymentStatus;
+    }
 }

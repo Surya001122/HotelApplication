@@ -172,32 +172,41 @@ public class HotelBooking {
                         otherCustomers.put(guestId++, guestName);
                         guests--;
                     }
-                    System.out.println("\n\nBooked successfully\n");
-                    this.paymentStatus = true;
                     totalRooms--;
+                    this.paymentStatus = true;
                 }
             }
-            if(totalRooms==0)
+            for(Room room : rooms){
+                room.setTotalDays(daysList.get(0));
+                daysList.remove(0);
+                this.billAmount += room.calculateRoomRent();
+
+            }
+            System.out.println("\nEnter 1 to pay the bill Amount\nEnter 2 to exit\n\n\nEnter your choice");
+            int paymentChoice = sc.nextInt();
+            switch(paymentChoice){
+                case 1:
+                    customer.payBill(billAmount,paymentStatus);
+                    break;
+                case 2:
+                    System.out.println("Booking cancelled...");
+                    break;
+                default:
+                    System.out.println("Booking cancelled...Enter valid option...");
+                    break;
+            }
+            if(!this.paymentStatus)
             {
                 this.bookedRooms.addAll(rooms);
                 this.guests.putAll(otherCustomers);
                 this.customerId = customer.getCustomerId();
                 this.customerName = customer.getCustomerName();
                 this.customerPhoneNumber = customer.getCustomerPhoneNumber();
-                for(Room room:bookedRooms){
-                    if(room.getTotalDays()==0) {
-                        room.setTotalDays(daysList.get(0));
-                        this.billAmount += room.calculateRoomRent();
-                        daysList.remove(0);
-                    }
+                for(Room room:bookedRooms) {
+                    room.bookRoom(customer);
                 }
-            }
-            else
-            {
-                for(Room room:bookedRooms){
-                    room.cancelBooking();
-                }
-                System.out.println("\nPlease try again...");
+                this.billAmount = 0;
+                this.paymentStatus = false;
             }
         }
         else
@@ -226,6 +235,7 @@ public class HotelBooking {
                 }
                 bookedRooms.clear();
                 guests.clear();
+                
                 System.out.println("\nBooking cancelled...");
                 break;
             case 2:
