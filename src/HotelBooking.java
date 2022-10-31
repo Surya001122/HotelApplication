@@ -186,7 +186,7 @@ public class HotelBooking {
             int paymentChoice = sc.nextInt();
             switch(paymentChoice){
                 case 1:
-                    customer.payBill(billAmount,paymentStatus);
+                    paymentStatus = customer.payBill(billAmount);
                     break;
                 case 2:
                     System.out.println("Booking cancelled...");
@@ -235,7 +235,7 @@ public class HotelBooking {
                 }
                 bookedRooms.clear();
                 guests.clear();
-                
+
                 System.out.println("\nBooking cancelled...");
                 break;
             case 2:

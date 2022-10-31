@@ -137,6 +137,7 @@ public class Customer {
                 room = hotel.getRoom(roomType,roomNumber);
                 if(room!=null && hotel.getBooking(customer).bookedRooms.contains(room)){
                     System.out.println("\nExtra bed added to room...");
+                    hotel.getBooking(customer).setPaymentStatus(true);
                     room.orderExtraBeds();
                 }
                 else{
@@ -147,8 +148,9 @@ public class Customer {
                 break;
         }
     }
-    public boolean payBill(int billAmount,boolean paymentStatus){
+    public boolean payBill(int billAmount){
         System.out.println("\nEnter 1 to pay the amount\nEnter 2 to cancel payment\n\n\nEnter your choice");
+        boolean paymentStatus;
         int paymentChoice = sc.nextInt();
         switch(paymentChoice){
             case 1:
