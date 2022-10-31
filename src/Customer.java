@@ -132,6 +132,7 @@ public class Customer {
                 roomType = sc.next();
                 room = hotel.getRoom(roomType,roomNumber);
                 if(room!=null && hotel.getBooking(customer).bookedRooms.contains(room)){
+                    System.out.println("\nExtra bed added to room...");
                     room.orderExtraBeds();
                 }
                 else{

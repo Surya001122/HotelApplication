@@ -158,7 +158,7 @@ public abstract class Room {
     {
         System.out.print("\nEnter 1 to place Order\nEnter 2 to exit\n\n\nEnter your choice : ");
         int choice = sc.nextInt();
-        ArrayList<String>orders = new ArrayList<>();
+        HashMap<String,Integer> orders = new HashMap<>();
         switch(choice){
             case 1:
                 boolean orderRun = true;
@@ -167,9 +167,11 @@ public abstract class Room {
                     int orderChoice = sc.nextInt();
                     switch(orderChoice){
                         case 1:
-                            System.out.println("\nEnter the food Item : ");
+                            System.out.print("\nEnter the food Item : ");
                             String foodItem = sc.next();
-                            orders.add(foodItem);
+                            System.out.print("\nEnter the quantity : ");
+                            int foodQuantity = sc.nextInt();
+                            orders.put(foodItem,foodQuantity);
                             break;
                         case 2:
                             System.out.println("Order completed...");

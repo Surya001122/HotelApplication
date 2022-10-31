@@ -1,4 +1,5 @@
 import java.util.ArrayList;
+import java.util.HashMap;
 
 public class Chef extends Employee{
     private Menu menu;
@@ -18,12 +19,12 @@ public class Chef extends Employee{
     public void changeMenu(){
         menu.changeMenu();
     }
-    public int takeOrder(ArrayList<String> orders)
+    public int takeOrder(HashMap<String,Integer> orders)
     {
         int totalAmount = 0;
-        for(String item:orders){
-            if(menu.foodItems.containsKey(orders)){
-                totalAmount += menu.foodItems.get(orders);
+        for(String itemName:orders.keySet()){
+            if(menu.foodItems.containsKey(itemName)){
+                totalAmount += menu.foodItems.get(itemName)*orders.get(itemName);
             }
         }
         System.out.println("\nYour order is placed...");
