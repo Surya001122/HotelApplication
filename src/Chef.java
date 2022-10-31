@@ -26,6 +26,7 @@ public class Chef extends Employee{
                 totalAmount += menu.foodItems.get(orders);
             }
         }
+        System.out.println("\nYour order is placed...");
         return totalAmount;
     }
 }

@@ -172,7 +172,7 @@ public abstract class Room {
                             orders.add(foodItem);
                             break;
                         case 2:
-                            orderRun = false;
+                            System.out.println("Order completed...");
                             this.foodOrdersAmount+= chef.takeOrder(orders);
                             break;
                         default:

@@ -11,7 +11,7 @@ public class Main {
         Scanner sc = new Scanner(System.in);
         HashMap<String,String>usersLoginInfo = new HashMap<>();
         Hotel hotel = new Hotel("KFC","Chennai","54321","KFC@gmail.com");
-        Manager manager = new Manager("admin1","ADMIN","admin123");
+        Manager manager = new Manager("manager1","MANAGER","manager123");
         Chef chef = new Chef("chef1","CHEF","chef123");
         Menu menu = new Menu();
         menu.foodItems.put("Pizza",100);

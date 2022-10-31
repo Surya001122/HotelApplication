@@ -107,15 +107,17 @@ public class Customer {
     public void callRoomService(Hotel hotel,Chef chef,Customer customer)
     {
         System.out.print("\nEnter 1 to make a foodOrder\nEnter 2 to order beds\n\nEnter your choice : ");
-        int choice = sc.nextInt();
+        int choice = sc.nextInt(),roomNumber;
+        String roomType;
+        Room room;
         switch(choice)
         {
             case 1:
                 System.out.print("\nEnter room Number : ");
-                int roomNumber = sc.nextInt();
+                roomNumber = sc.nextInt();
                 System.out.print("\nEnter the room Type : ");
-                String roomType = sc.next();
-                Room room = hotel.getRoom(roomType,roomNumber);
+                roomType = sc.next();
+                room = hotel.getRoom(roomType,roomNumber);
                 if(room!=null && hotel.getBooking(customer).bookedRooms.contains(room)){
                     room.placeOrder(chef);
                 }
@@ -124,6 +126,17 @@ public class Customer {
                 }
                 break;
             case 2:
+                System.out.print("\nEnter room Number : ");
+                roomNumber = sc.nextInt();
+                System.out.print("\nEnter the room Type : ");
+                roomType = sc.next();
+                room = hotel.getRoom(roomType,roomNumber);
+                if(room!=null && hotel.getBooking(customer).bookedRooms.contains(room)){
+                    room.orderExtraBeds();
+                }
+                else{
+                    System.out.println("Please enter valid room information...Please try again...");
+                }
                 break;
             default:
                 break;
