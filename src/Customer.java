@@ -9,6 +9,7 @@ public class Customer {
     private String customerPassword;
     private boolean paymentStatus;
     public Customer(String customerId, String customerName, String gender, String customerAddress, String customerPhoneNumber, String customerPassword) {
+        sc = new Scanner(System.in);
         this.customerId = customerId;
         this.customerName = customerName;
         this.gender = gender;
@@ -86,7 +87,6 @@ public class Customer {
         booker.viewMyGuests();
     }
     public String changeMyPassword(){
-        sc = new Scanner(System.in);
         System.out.println("Enter your id : " );
         String id = sc.next();
         System.out.print("Enter your old Password : ");
@@ -103,5 +103,30 @@ public class Customer {
     }
     public void viewMyBill(HotelBooking booker){
         booker.viewMyBill();
+    }
+    public void callRoomService(Hotel hotel,Chef chef,Customer customer)
+    {
+        System.out.print("\nEnter 1 to make a foodOrder\nEnter 2 to order beds\n\nEnter your choice : ");
+        int choice = sc.nextInt();
+        switch(choice)
+        {
+            case 1:
+                System.out.print("\nEnter room Number : ");
+                int roomNumber = sc.nextInt();
+                System.out.print("\nEnter the room Type : ");
+                String roomType = sc.next();
+                Room room = hotel.getRoom(roomType,roomNumber);
+                if(room!=null && hotel.getBooking(customer).bookedRooms.contains(room)){
+                    room.placeOrder(chef);
+                }
+                else{
+                    System.out.println("Please enter valid room information...Please try again...");
+                }
+                break;
+            case 2:
+                break;
+            default:
+                break;
+        }
     }
 }

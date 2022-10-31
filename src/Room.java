@@ -12,7 +12,8 @@ public abstract class Room {
     private int totalBeds; // stores the number of beds the room has in it.
     private int rent;
     private int totalDays;
-    private int otherServicesRate; // stores the amount of other services to that room.
+    private int otherServicesRate; // stores the amount to pay for other services to that room.
+    private int foodOrdersAmount;
     private int roomMobileNumber; // stores the room's mobileNumber.
     private static int roomServiceNumber = 123; // stores the room service number. static variable as the roomService number remains same for all the rooms.
     public Room(int roomNumber, String roomType, int floorNumber, int totalBeds, int rent, int roomMobileNumber) {
@@ -23,6 +24,8 @@ public abstract class Room {
         this.rent = rent;
         this.roomMobileNumber = roomMobileNumber;
         this.totalDays = 0;
+        this.otherServicesRate = 0;
+        this.foodOrdersAmount = 0;
     }
 
     public String getCustomerId() {
@@ -97,6 +100,14 @@ public abstract class Room {
         this.otherServicesRate = otherServicesRate;
     }
 
+    public int getFoodOrdersAmount() {
+        return foodOrdersAmount;
+    }
+
+    public void setFoodOrdersAmount(int foodOrdersAmount) {
+        this.foodOrdersAmount = foodOrdersAmount;
+    }
+
     public int getRoomMobileNumber() {
         return roomMobileNumber;
     }
@@ -122,6 +133,7 @@ public abstract class Room {
         this.roomStatus = false;
         this.totalDays = 0;
         this.otherServicesRate = 0;
+        this.foodOrdersAmount = 0;
         if( (this.roomType.equals("Single") && this.totalBeds==2) || (this.roomType.equals("Double") && this.totalBeds==3) || (this.roomType.equals("Deluxe") && this.totalBeds==4) ) {
             this.totalBeds -= 1;
         }
@@ -137,8 +149,41 @@ public abstract class Room {
         }
     } // method is used to order extra beds after checking if that beds can be accomodated on that roomtype and the totalBeds variable will be increased.
     public int calculateOtherServices(){
-        System.out.println("\nOther Services Rate \nRoom Service\nFood Orders");
         return this.getOtherServicesRate();
+    }
+    public int calculateFoodOrdersAmount(){
+        return this.getFoodOrdersAmount();
+    }
+    public void placeOrder(Chef chef)
+    {
+        System.out.print("\nEnter 1 to place Order\nEnter 2 to exit\n\n\nEnter your choice : ");
+        int choice = sc.nextInt();
+        ArrayList<String>orders = new ArrayList<>();
+        switch(choice){
+            case 1:
+                boolean orderRun = true;
+                while(orderRun){
+                    System.out.print("\nEnter 1 to continue adding food items\nEnter 2 to place order\nEnter 3 to exit\n\n\nEnter your choice :");
+                    int orderChoice = sc.nextInt();
+                    switch(orderChoice){
+                        case 1:
+                            System.out.println("\nEnter the food Item : ");
+                            String foodItem = sc.next();
+                            orders.add(foodItem);
+                            break;
+                        case 2:
+                            orderRun = false;
+                            this.foodOrdersAmount+= chef.takeOrder(orders);
+                            break;
+                        default:
+                            orderRun = false;
+                            break;
+                    }
+                }
+                break;
+            default:
+                break;
+        }
     }
     abstract void viewAvailableFacilities();// abstract method, as the availability of facilities changes for different rooms and there is no need to implement this method in general class Room.
     abstract int calculateRoomRent(); //abstract method, as the rent differ for each room based on the facilities and the implementation of calculating the rent is hidden.

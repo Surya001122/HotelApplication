@@ -73,7 +73,7 @@ public class Main {
                             customer = manager.getHotel().getCustomer(customerId,customerPassword);
                             booker = hotel.getBooking(customer);
                             while (customerRun) {
-                                System.out.print("\n\n\nEnter 1 to Display Available Rooms\nEnter 2 to book Rooms\nEnter 3 to cancel booking\nEnter 4 to display my room bookings\nEnter 5 to display my guests\nEnter 6 to change my password\nEnter 7 to view Menu\nEnter 8 to view my bill\n\n\n\nEnter your choice : ");
+                                System.out.print("\n\n\nEnter 1 to Display Available Rooms\nEnter 2 to book Rooms\nEnter 3 to cancel booking\nEnter 4 to display my room bookings\nEnter 5 to display my guests\nEnter 6 to change my password\nEnter 7 to view Menu\nEnter 8 to call room service\nEnter 9 to view my bill\n\n\n\nEnter your choice : ");
                                 int customerChoice = sc.nextInt();
                                 switch (customerChoice) {
                                     case 1:
@@ -99,6 +99,9 @@ public class Main {
                                         chef.displayMenu();
                                         break;
                                     case 8:
+                                        customer.callRoomService(hotel,chef,customer);
+                                        break;
+                                    case 9:
                                         customer.viewMyBill(booker);
                                         break;
                                     default:
@@ -129,20 +132,26 @@ public class Main {
                             System.out.println("\n\nManager logged in successfully...");
                             boolean managerRun = true;
                             while(managerRun){
-                                System.out.print("\nEnter 1 to add Employees in hotel\nEnter 2 to remove Employees from hotel\nEnter 3 to add customers in hotel\nEnter 4 to remove Customers from hotel\n\n\nEnter your choice : ");
+                                System.out.print("\nEnter 1 to add Employees in hotel\nEnter 2 to remove Employees from hotel\nEnter 3 to add customers in hotel\nEnter 4 to remove Customers from hotel\nEnter 5 to view customers in hotel\nEnter 6 to view employees in hotel\n\n\nEnter your choice : ");
                                 int managerChoice = sc.nextInt();
                                 switch(managerChoice){
                                     case 1:
-                                        manager.addEmployees();
+                                        manager.addEmployees(usersLoginInfo);
                                         break;
                                     case 2:
-                                        manager.removeEmployees();
+                                        manager.removeEmployees(usersLoginInfo);
                                         break;
                                     case 3:
-                                        manager.addCustomers();
+                                        manager.addCustomers(usersLoginInfo);
                                         break;
                                     case 4:
-                                        manager.removeCustomers();
+                                        manager.removeCustomers(usersLoginInfo);
+                                        break;
+                                    case 5:
+                                        manager.viewEmployees();
+                                        break;
+                                    case 6:
+                                        manager.viewCustomers();
                                         break;
                                     default:
                                         managerRun = false;
@@ -172,7 +181,7 @@ public class Main {
                             System.out.println("\n\nEmployee logged in successfully...");
                             boolean employeeRun = true;
                             while(employeeRun){
-                                System.out.println("\nEnter 1 to display menu\nEnter 2 to change menu\n\n\nEnter your choice :");
+                                System.out.println("\nEnter 1 to display menu\nEnter 2 to change menu\nEnter 3 to exit\n\n\nEnter your choice :");
                                 int employeeChoice = sc.nextInt();
                                 switch(employeeChoice){
                                     case 1:

@@ -189,7 +189,8 @@ public class HotelBooking {
             case 1:
                 this.viewMyRooms();
                 for(Room room:bookedRooms){
-                    this.billAmount+=room.calculateOtherServices();
+                    this.billAmount+= room.calculateOtherServices();
+                    this.billAmount+= room.calculateFoodOrdersAmount();
                     room.cancelBooking();
                 }
                 bookedRooms.clear();

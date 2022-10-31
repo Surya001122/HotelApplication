@@ -1,3 +1,5 @@
+import java.util.ArrayList;
+
 public class Chef extends Employee{
     private Menu menu;
     public Chef(String employeeId, String employeeName, String employeePassword) {
@@ -15,5 +17,15 @@ public class Chef extends Employee{
     }
     public void changeMenu(){
         menu.changeMenu();
+    }
+    public int takeOrder(ArrayList<String> orders)
+    {
+        int totalAmount = 0;
+        for(String item:orders){
+            if(menu.foodItems.containsKey(orders)){
+                totalAmount += menu.foodItems.get(orders);
+            }
+        }
+        return totalAmount;
     }
 }
