@@ -8,6 +8,7 @@ import java.time.format.DateTimeParseException;
 import java.util.*;
 public class HotelBooking {
     Scanner sc;
+
     static int id = 1;
     static int guestId = 1;
     private int bookingId; // stores the booking id for an individual customer.
