@@ -10,9 +10,9 @@ public class Main {
     public static void main(String[] args) {
         Scanner sc = new Scanner(System.in);
         HashMap<String,String>usersLoginInfo = new HashMap<>();
-        Hotel hotel = new Hotel("KFC","Chennai","54321","KFC@gmail.com");
-        Manager manager = new Manager("manager1","MANAGER","manager123");
-        Chef chef = new Chef("chef1","CHEF","chef123");
+        Hotel hotel = new Hotel("KFC","Chennai","54321","KFC@gmail.com","ZOHO",1);
+        Manager manager = new Manager("manager1","MANAGER","manager123","CHENNAI","123456789");
+        Chef chef = new Chef("chef1","CHEF","chef123","Chennai","123456789");
         Menu menu = new Menu();
         menu.foodItems.put("Pizza",100);
         menu.foodItems.put("Burger",200);
@@ -85,7 +85,7 @@ public class Main {
                             customer = manager.getHotel().getCustomer(customerId,customerPassword);
                             booker = hotel.getBooking(customer);
                             while (customerRun) {
-                                System.out.print("\n\n\nEnter 1 to Display Available Rooms\nEnter 2 to book Rooms\nEnter 3 to cancel booking\nEnter 4 to display my room bookings\nEnter 5 to display my guests\nEnter 6 to change my password\nEnter 7 to view Menu\nEnter 8 to call room service\nEnter 9 to view my bill\nEnter 10 to exit\n\n\n\nEnter your choice : ");
+                                System.out.print("\n\n\nEnter 1 to Display Available Rooms\nEnter 2 to book Rooms\nEnter 3 to cancel booking\nEnter 4 to display my room bookings\nEnter 5 to display my guests\nEnter 6 to change my password\nEnter 7 to view Menu\nEnter 8 to call room service\nEnter 9 to view my payment status\nEnter 10 to exit\n\n\n\nEnter your choice : ");
                                 int customerChoice;
                                 try {
                                     customerChoice = Integer.parseInt(sc.nextLine().trim());

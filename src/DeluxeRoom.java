@@ -12,7 +12,7 @@ public class DeluxeRoom extends Room{
         System.out.println("\n\nFACILITIES : \n\nTRIPLE COT\nAIR CONDITIONING\nTELIVISION\nGEYSER\nMASSAGE SPA\nMINI FRIDGE\nSWIMMING POOL");
     }
     @Override
-    public int calculateRoomRent() {
-        return this.getRent()*this.getTotalDays();
+    public int calculateRoomRent(int days) {
+        return this.getRent()*days;
     }
 }

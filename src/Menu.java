@@ -11,7 +11,7 @@ public class Menu {
     }
     public void displayMenu(){
         for(HashMap.Entry<String,Integer> menu : foodItems.entrySet()){
-            System.out.println("\nItem: "+menu.getKey()+"   Price: "+menu.getValue());
+            System.out.println("\nItem: "+menu.getKey()+"  Price: "+menu.getValue());
         }
     }
     public void changeMenu(){

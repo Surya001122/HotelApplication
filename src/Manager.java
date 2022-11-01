@@ -3,8 +3,8 @@ public class Manager extends Employee {
     private Hotel hotel;
     String employeeId,employeePassword,customerId,customerPassword;
     Scanner sc;
-    public Manager(String employeeId, String employeeName, String employeePassword) {
-        super(employeeId, employeeName, employeePassword);
+    public Manager(String employeeId, String employeeName, String employeePassword,String employeeAddress,String employeePhoneNumber) {
+        super(employeeId, employeeName, employeePassword,employeeAddress,employeePhoneNumber);
         sc = new Scanner(System.in);
     }
 

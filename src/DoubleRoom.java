@@ -11,7 +11,7 @@ class DoubleRoom extends Room{
         System.out.println("\n\nFACILITIES : \n\nDOUBLE COT\nAIR CONDITIONING\nTELIVISION\nGEYSER\n");
     }
     @Override
-    public int calculateRoomRent() {
-        return this.getRent() * this.getTotalDays();
+    public int calculateRoomRent(int days) {
+        return this.getRent()*days;
     }
 }

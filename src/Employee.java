@@ -2,11 +2,15 @@ public class Employee {
     private String employeeId;
     private String employeeName;
     private String employeePassword;
+    private String employeeAddress;
+    private String employeePhoneNumber;
 
-    public Employee(String employeeId, String employeeName, String employeePassword) {
+    public Employee(String employeeId, String employeeName, String employeePassword,String employeeAddress,String employeePhoneNumber) {
         this.employeeId = employeeId;
         this.employeeName = employeeName;
         this.employeePassword = employeePassword;
+        this.employeeAddress = employeeAddress;
+        this.employeePhoneNumber = employeePhoneNumber;
     }
 
     public String getEmployeeId() {

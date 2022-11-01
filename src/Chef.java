@@ -3,8 +3,8 @@ import java.util.HashMap;
 
 public class Chef extends Employee{
     private Menu menu;
-    public Chef(String employeeId, String employeeName, String employeePassword) {
-        super(employeeId, employeeName, employeePassword);
+    public Chef(String employeeId, String employeeName, String employeePassword,String employeeAddress,String employeePhoneNumber) {
+        super(employeeId, employeeName, employeePassword,employeeAddress,employeePhoneNumber);
 
     }
     public Menu getMenu() {
@@ -14,9 +14,11 @@ public class Chef extends Employee{
         this.menu = menu;
     }
     public void displayMenu(){
+
         menu.displayMenu();
     }
     public void changeMenu(){
+
         menu.changeMenu();
     }
     public int takeOrder(HashMap<String,Integer> orders)

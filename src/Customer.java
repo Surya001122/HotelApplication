@@ -230,7 +230,7 @@ public class Customer {
         }
     }
     public boolean payBill(int billAmount){
-        System.out.println("\nEnter 1 to pay the amount\nEnter 2 to cancel payment\n\n\nEnter your choice");
+        System.out.println("\nEnter 1 to pay the amount\nEnter 2 to cancel payment\n\n\nEnter your choice : ");
         boolean paymentStatus;
         int paymentChoice = 0;
         try {

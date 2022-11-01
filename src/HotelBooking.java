@@ -19,6 +19,7 @@ public class HotelBooking {
     private int otherServicesAmount;
     HashMap<Integer,String> guests; // stores the guestId and guestName in the rooms booked...includes the person's name and person's id accompanying the customers.
     ArrayList<Room> bookedRooms; // Integer represents the days at which the room will be in occupied status.....Room represents the total rooms booked by the customer.
+    ArrayList<Integer> totalDaysList;
     private boolean paymentStatus;
 
     public HotelBooking(String customerId,String customerName,String customerPhoneNumber) {
@@ -28,6 +29,7 @@ public class HotelBooking {
         this.customerPhoneNumber = customerPhoneNumber;
         guests = new HashMap<>();
         bookedRooms = new ArrayList<>();
+        totalDaysList = new ArrayList<>();
         billAmount = 0;
         foodOrdersAmount = 0;
         otherServicesAmount = 0;
@@ -105,11 +107,9 @@ public class HotelBooking {
         guests.put(guestId,guestName);
     }
 
-
     public ArrayList<Room> getBookedRooms() {
         return bookedRooms;
     }
-
     public void setBookedRooms(ArrayList<Room> bookedRooms) {
         this.bookedRooms = bookedRooms;
     }
@@ -118,6 +118,7 @@ public class HotelBooking {
         bookedRooms.add(bookedRoom);
     }
     public void displayAvailableRooms(Hotel hotel){
+        System.out.println("\nAvailable Rooms");
         hotel.displayAllAvailableRooms();
     }
     public void createBooking(Customer customer,Hotel hotel) {
@@ -137,9 +138,9 @@ public class HotelBooking {
         HashMap<Integer,String> otherCustomers = new HashMap<>();
         if(totalRooms <= hotel.totalAvailableRooms())
         {
+            System.out.println("\n\nThe available rooms are : ");
+            hotel.displayAllAvailableRooms();
             while (totalRooms > 0) {
-                System.out.println("\n\nThe available rooms are : ");
-                hotel.displayAllAvailableRooms();
                 System.out.print("\n\n\nEnter room type : ");
                 String roomType = sc.nextLine().trim();
                 System.out.print("\nEnter room number : ");
@@ -195,12 +196,11 @@ public class HotelBooking {
                     this.paymentStatus = true;
                 }
             }
+            int daysIndex = 0;
             for(Room room : rooms){
-                room.setTotalDays(daysList.get(0));
-                daysList.remove(0);
-                this.billAmount += room.calculateRoomRent();
-                viewMyBill();
+                this.billAmount += room.calculateRoomRent(daysList.get(daysIndex++));
             }
+            viewMyBill();
             System.out.println("\nEnter 1 to pay the bill Amount\nEnter 2 to exit\n\n\nEnter your choice");
             int paymentChoice = 0;
             try {
@@ -220,20 +220,22 @@ public class HotelBooking {
                     System.out.println("Booking cancelled...Enter valid option...");
                     break;
             }
-            if(!this.paymentStatus)
-            {
+            if(!this.paymentStatus) {
                 this.bookedRooms.addAll(rooms);
                 this.guests.putAll(otherCustomers);
+                this.totalDaysList.addAll(daysList);
                 this.customerId = customer.getCustomerId();
                 this.customerName = customer.getCustomerName();
                 this.customerPhoneNumber = customer.getCustomerPhoneNumber();
-                for(Room room:bookedRooms) {
-                    room.bookRoom(customer);
+                for (Room room : bookedRooms) {
+                    room.setRoomStatus(true);
                 }
-                this.billAmount = 0;
-                this.paymentStatus = false;
-                viewMyBill();
             }
+            else{
+                System.out.println("Rooms are not booked...Try again...");
+            }
+            this.billAmount = 0;
+            this.paymentStatus = false;
         }
         else
         {
@@ -255,25 +257,21 @@ public class HotelBooking {
             case 1:
                 this.viewMyRooms();
                 for(Room room:bookedRooms){
-                    this.billAmount+= room.calculateOtherServices();
-                    this.billAmount+= room.calculateFoodOrdersAmount();
-                    room.cancelBooking();
+                    room.setRoomStatus(false);
                 }
                 bookedRooms.clear();
                 guests.clear();
-
                 System.out.println("\nBooking cancelled...");
                 break;
             case 2:
                 Boolean repeat = true;
                 int roomNumber;
                 while(repeat) {
-                    System.out.println("\nEnter 1 to continue cancel booking\nEnter 2 to exit\n");
+                    System.out.println("\nEnter 1 to start cancel booking\nEnter 2 to exit\n\n\nEnter your choice : ");
                     choice = Integer.parseInt(sc.nextLine().trim());
                     switch(choice){
                         case 1:
                             this.viewMyRooms();
-                            System.out.println("\nEnter 1 to continue cancel booking\nEnter 2 to exit\n");
                             System.out.println("Enter the roomNumber to cancel : ");
                             try {
                                 roomNumber = Integer.parseInt(sc.nextLine().trim());
@@ -286,9 +284,7 @@ public class HotelBooking {
                             String roomType = sc.nextLine().trim();
                             Room room = hotel.getRoom(roomType,roomNumber);
                             if (bookedRooms.contains(room)) {
-                                this.billAmount+= room.calculateOtherServices();
-                                this.billAmount+= room.calculateFoodOrdersAmount();
-                                room.cancelBooking();
+                                room.setRoomStatus(false);
                                 bookedRooms.remove(room);
                             } else {
                                 System.out.println("Enter valid room information..Please try again...");
@@ -327,7 +323,7 @@ public class HotelBooking {
         if(bookedRooms.size()>0) {
             System.out.println("\nRooms booked by Customer\n*********************************");
             for (Room room : bookedRooms) {
-                System.out.println("\nRoom Type : " + room.getRoomType() + "   Room Number : " + room.getRoomNumber()+"  Total Days : "+room.getTotalDays()+"  Room rent for total days : "+room.calculateRoomRent());
+                System.out.println("\nRoom Type : " + room.getRoomType() + "   Room Number : " + room.getRoomNumber()+"  Total Days : "+this.totalDaysList.get(bookedRooms.indexOf(room))+"  Room rent for total days : "+room.calculateRoomRent(this.totalDaysList.get(bookedRooms.indexOf(room))));
             }
         }
         else {

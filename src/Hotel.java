@@ -4,23 +4,25 @@ import java.util.HashMap;
 import java.util.concurrent.Callable;
 
 class Hotel {
-    private String hotelName; // stores the name of the hotel
-    private String hotelAddress; // stores the address of the hotel
-    private String hotelMobileNumber; // stores the mobile number of the hotel
-    private String hotelEmailId; // stores the mailId of the hotel
-    private String hotelLandmark; // stores the nearby landmark of the hotel
-    private int totalFloors; // stores the total floors present in a hotel;
-    ArrayList<String> hotelLocations; // stores the different location in which the hotel is present
-    ArrayList<Room> rooms; // Hotel has Rooms(has a relationship)
-    ArrayList<Customer> customers; // stores the customers object in the hotel
-    ArrayList<HotelBooking> bookings; // stores the booking object for different customers in the hotel....
+    private String hotelName;
+    private String hotelAddress;
+    private String hotelMobileNumber;
+    private String hotelEmailId;
+    private String hotelLandmark;
+    private int totalFloors;
+    ArrayList<String> hotelLocations;
+    ArrayList<Room> rooms;
+    ArrayList<Customer> customers;
+    ArrayList<HotelBooking> bookings;
     ArrayList<Employee> employees;
-    private int hotelRating; // stores the rating of the hotel;
-    public Hotel(String hotelName, String hotelAddress, String hotelMobileNumber, String hotelEmailId) {
+    private int hotelRating;
+    public Hotel(String hotelName, String hotelAddress, String hotelMobileNumber, String hotelEmailId,String hotelLandmark,int totalFloors) {
         this.hotelName = hotelName;
         this.hotelAddress = hotelAddress;
         this.hotelMobileNumber = hotelMobileNumber;
         this.hotelEmailId = hotelEmailId;
+        this.hotelLandmark = hotelLandmark;
+        this.totalFloors = totalFloors;
         rooms = new ArrayList<>();
         customers = new ArrayList<>();
         bookings = new ArrayList<>();
