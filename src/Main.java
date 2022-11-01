@@ -185,10 +185,10 @@ public class Main {
                                         manager.removeCustomers(usersLoginInfo);
                                         break;
                                     case 5:
-                                        manager.viewEmployees();
+                                        manager.viewCustomers(usersLoginInfo);
                                         break;
                                     case 6:
-                                        manager.viewCustomers();
+                                        manager.viewEmployees(usersLoginInfo);
                                         break;
                                     case 7:
                                         managerRun = false;
@@ -260,6 +260,7 @@ public class Main {
                     }
                     break;
                 default:
+                    System.out.println("\nApplication stopped...");
                     bool = false;
                     break;
             }

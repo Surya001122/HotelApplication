@@ -106,7 +106,7 @@ public class Customer {
             choice = Integer.parseInt(sc.nextLine().trim());
         }
         catch(NumberFormatException numberFormatException){
-            System.out.println();
+            System.out.println("Enter valid option...try again..");
         }
         switch(choice)
         {
@@ -137,7 +137,7 @@ public class Customer {
                             orderChoice = Integer.parseInt(sc.nextLine().trim());
                         }
                         catch(NumberFormatException numberFormatException){
-                            System.out.println();
+                            System.out.println("Enter valid option...try again..");
                         }
                         switch(orderChoice){
                             case 1:
@@ -232,7 +232,14 @@ public class Customer {
     public boolean payBill(int billAmount){
         System.out.println("\nEnter 1 to pay the amount\nEnter 2 to cancel payment\n\n\nEnter your choice");
         boolean paymentStatus;
-        int paymentChoice = sc.nextInt();
+        int paymentChoice = 0;
+        try {
+            paymentChoice = Integer.parseInt(sc.nextLine().trim());
+        }
+        catch (NumberFormatException numberFormatException){
+            System.out.println("Enter valid option...Payment declined");
+            return true;
+        }
         switch(paymentChoice){
             case 1:
                 System.out.println("\nPayment successful..");

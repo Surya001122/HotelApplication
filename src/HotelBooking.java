@@ -202,7 +202,13 @@ public class HotelBooking {
                 viewMyBill();
             }
             System.out.println("\nEnter 1 to pay the bill Amount\nEnter 2 to exit\n\n\nEnter your choice");
-            int paymentChoice = sc.nextInt();
+            int paymentChoice = 0;
+            try {
+                paymentChoice = Integer.parseInt(sc.nextLine().trim());
+            }
+            catch(NumberFormatException numberFormatException){
+                System.out.println("Enter valid option...");
+            }
             switch(paymentChoice){
                 case 1:
                     paymentStatus = customer.payBill(billAmount);
