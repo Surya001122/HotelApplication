@@ -329,7 +329,7 @@ public class HotelBooking {
         }
     }
     public void viewMyBill(){
-        System.out.println("\nTotal due Amount : "+this.billAmount);
+        System.out.println("\nTotal rent Amount : "+this.billAmount);
         System.out.println("\nTotal foodOrders Amount : "+this.foodOrdersAmount);
         System.out.println("\nTotal otherServices Amount : "+this.otherServicesAmount);
         System.out.println("\nPayment Status : "+(this.paymentStatus?"NOT PAID" : "PAID"));

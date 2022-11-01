@@ -97,17 +97,17 @@ public class Customer {
     }
     public void callRoomService(Customer customer,HotelBooking booker,Chef chef)
     {
-        System.out.print("\nEnter 1 to make a foodOrder\nEnter 2 to order beds\n\nEnter your choice : ");
-        int choice,roomNumber;
+        System.out.print("\nEnter 1 to make a foodOrder\nEnter 2 to order beds\n\nEnter your choice : \n");
+        String roomType;
+        int roomNumber;
+        Room room = null;
+        int choice = 0;
         try {
-            choice = sc.nextInt();
+            choice = Integer.parseInt(sc.nextLine().trim());
         }
         catch(NumberFormatException numberFormatException){
-            System.out.println("Enter valid option...Try again..");
-            return;
+            System.out.println();
         }
-        String roomType;
-        Room room = null;
         switch(choice)
         {
             case 1:
@@ -129,16 +129,15 @@ public class Customer {
                 }
                 if(room != null){
                     boolean orderRun = true;
-                    int orderChoice;
+                    int orderChoice = 0;
                     HashMap<String,Integer>orders = new HashMap<>();
                     while(orderRun){
                         System.out.print("\nEnter 1 to continue adding food items\nEnter 2 to place order\nEnter 3 to exit\n\n\nEnter your choice : ");
                         try {
-                            orderChoice = sc.nextInt();
+                            orderChoice = Integer.parseInt(sc.nextLine().trim());
                         }
                         catch(NumberFormatException numberFormatException){
-                            System.out.println("Enter valid option...Please try again..");
-                            continue;
+                            System.out.println();
                         }
                         switch(orderChoice){
                             case 1:
@@ -165,6 +164,11 @@ public class Customer {
                                     booker.setFoodOrdersAmount(0);
                                     booker.viewMyBill();
                                 }
+                                else{
+                                    booker.setFoodOrdersAmount(0);
+                                    booker.setPaymentStatus(false);
+                                    System.out.println("Your order is cancelled...");
+                                }
                                 break;
                             default:
                                 orderRun = false;
@@ -187,13 +191,39 @@ public class Customer {
                 }
                 System.out.print("\nEnter the room Type : ");
                 roomType = sc.nextLine().trim();
-//                if(roomType)
-//                {
-//
-//                }
-//                else{
-//                    System.out.println("Please enter valid room information...Please try again...");
-//                }
+                for(Room bookedRoom : booker.getBookedRooms()){
+                    if(bookedRoom.getRoomNumber()==roomNumber && bookedRoom.getRoomType().equals(roomType)){
+                        room = bookedRoom;
+                        break;
+                    }
+                }
+                if (room != null) {
+                    booker.setOtherServicesAmount(100);
+                    booker.setPaymentStatus(true);
+                    booker.viewMyBill();
+                    booker.setPaymentStatus(customer.payBill(booker.getOtherServicesAmount()));
+                    if(!booker.getPaymentStatus()) {
+                        booker.setOtherServicesAmount(0);
+                        booker.viewMyBill();
+                        if(room.getRoomType().equals("Single") &&  room.getTotalBeds()==1) {
+                            room.setTotalBeds(2);
+                        }
+                        if(room.getRoomType().equals("Double") &&  room.getTotalBeds()==2) {
+                            room.setTotalBeds(3);
+                        }
+                        if(room.getRoomType().equals("Triple") &&  room.getTotalBeds()==3) {
+                            room.setTotalBeds(4);
+                        }
+                    }
+                    else{
+                        booker.setOtherServicesAmount(0);
+                        booker.setPaymentStatus(false);
+                        System.out.println("Your order is cancelled...");
+                    }
+                }
+                else {
+                    System.out.println("\nEnter valid room information...");
+                }
                 break;
             default:
                 break;

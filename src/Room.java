@@ -143,22 +143,11 @@ public abstract class Room {
     public void displayRoomInfo() {
         System.out.println("\n\nRoom Type : "+this.roomType+"\nRoom Number : "+this.roomNumber+"" +"\nFloorNumber : "+this.floorNumber+"\nTotal beds : "+this.totalBeds+"\nRoom rent : "+this.rent);
     } // method is used to display the room details.
-    public void orderExtraBeds() {
-        if( (this.roomType.equals("Single") && this.totalBeds==1) || (this.roomType.equals("Double") && this.totalBeds==2) || (this.roomType.equals("Deluxe") && this.totalBeds==3) ) {
-            this.totalBeds += 1;
-            this.otherServicesRate += 100;
-        }
-    } // method is used to order extra beds after checking if that beds can be accomodated on that roomtype and the totalBeds variable will be increased.
     public int calculateOtherServices(){
         return this.getOtherServicesRate();
     }
     public int calculateFoodOrdersAmount(){
         return this.getFoodOrdersAmount();
-    }
-    public void placeOrder(Chef chef)
-    {
-
-
     }
     abstract void viewAvailableFacilities();// abstract method, as the availability of facilities changes for different rooms and there is no need to implement this method in general class Room.
     abstract int calculateRoomRent(); //abstract method, as the rent differ for each room based on the facilities and the implementation of calculating the rent is hidden.
