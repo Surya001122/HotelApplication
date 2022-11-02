@@ -71,8 +71,8 @@ public class Manager extends Employee {
     public void addEmployees(HashMap<String, String> usersLoginInfo){
         System.out.println("\nEnter EmployeeName : ");
         employeeName = sc.nextLine().trim();
-        System.out.print("\nGenerating ID : \n");
-        employeeId = Main.getLoginId(employeeName);
+        System.out.println("\nEnter your Id : ");
+        employeeId = sc.nextLine().trim();
         System.out.println("Enter Employee phoneNumber : ");
         employeePhoneNumber = sc.nextLine().trim();
         if(!Main.validatePhoneNumber(employeePhoneNumber)){
