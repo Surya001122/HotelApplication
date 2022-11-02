@@ -1,13 +1,12 @@
 import java.util.*;
 public class Manager extends Employee {
     private Hotel hotel;
-    String employeeId,employeePassword,customerId,customerPassword;
+    String employeeId,employeeName,employeePassword,employeeAddress,employeePhoneNumber,customerId,customerName,customerPassword,customerAddress,customerPhoneNumber,customerGender;
     Scanner sc;
     public Manager(String employeeId, String employeeName, String employeePassword,String employeeAddress,String employeePhoneNumber) {
         super(employeeId, employeeName, employeePassword,employeeAddress,employeePhoneNumber);
         sc = new Scanner(System.in);
     }
-
     public Hotel getHotel() {
         return hotel;
     }
@@ -25,16 +24,25 @@ public class Manager extends Employee {
     public void addCustomers(HashMap<String,String>usersLoginInfo){
         System.out.print("\nEnter CustomerID : ");
         customerId = sc.nextLine().trim();
-        System.out.print("\nEnter CustomerPassword : ");
+        System.out.println("\nEnter Customer Name : ");
+        customerName = sc.nextLine().trim();
+        System.out.println("Enter your gender : ");
+        customerGender = sc.nextLine().trim();
+        System.out.print("\nEnter Customer Password : ");
         customerPassword = sc.nextLine().trim();
+        System.out.println("\nEnter Customer Address : ");
+        customerAddress = sc.nextLine().trim();
+        System.out.println("Enter Customer phoneNumber : ");
+        customerPhoneNumber = sc.nextLine().trim();
         Customer customer = this.hotel.getCustomer(customerId,customerPassword);
-        if(customer!=null){
+        if(customer==null){
+            customer = new Customer(customerId,customerName,customerGender,customerAddress,customerPhoneNumber,customerPassword);
             this.hotel.addCustomers(customer);
             usersLoginInfo.put(customerId,customerPassword);
-            System.out.println("\nCustomer added in hotel");
+            System.out.println("\nNew Customer added in hotel");
         }
         else{
-            System.out.println("\nYou have entered wrong id and password...Please try again...");
+            System.out.println("\nCustomer already present in hotel...");
         }
     }
     public void removeCustomers(HashMap<String,String>usersLoginInfo) {
@@ -55,16 +63,23 @@ public class Manager extends Employee {
     public void addEmployees(HashMap<String, String> usersLoginInfo){
         System.out.print("\nEnter EmployeeID : ");
         employeeId = sc.nextLine().trim();
+        System.out.println("\nEnter EmployeeName : ");
+        employeeName = sc.nextLine().trim();
         System.out.print("\nEnter EmployeePassword : ");
         employeePassword = sc.nextLine().trim();
+        System.out.println("\nEnter Employee Address : ");
+        employeeAddress = sc.nextLine().trim();
+        System.out.println("Enter Employee phoneNumber : ");
+        employeePhoneNumber = sc.nextLine().trim();
         Employee employee = this.hotel.getEmployee(employeeId,employeePassword);
-        if(employee!=null){
+        if(employee==null){
+            employee = new Employee(employeeId,employeeName,employeePassword,employeeAddress,employeePhoneNumber);
             this.hotel.addEmployees(employee);
-            System.out.println("\nEmployee added in hotel");
+            System.out.println("\nNew employee added in hotel");
             usersLoginInfo.put(employeeId,employeePassword);
         }
         else{
-            System.out.println("\nYou have entered wrong id and password...Please try again...");
+            System.out.println("\nEmployee already present in hotel...");
         }
     }
     public void removeEmployees(HashMap<String,String>usersLoginInfo){
@@ -110,7 +125,7 @@ public class Manager extends Employee {
                 }
             case 2:
                 for(Customer cus : hotel.customers){
-                    System.out.println("\nEmployee ID : "+cus.getCustomerId()+"  Employee Name : "+cus.getCustomerName()+"  Employee Password : "+cus.getCustomerPassword());
+                    System.out.println("\nCustomer ID : "+cus.getCustomerId()+"  Customer Name : "+cus.getCustomerName()+"  Customer Password : "+cus.getCustomerPassword());
                 }
                 break;
             default:
