@@ -1,18 +1,11 @@
-import com.sun.xml.internal.ws.server.SingletonResolver;
-import jdk.internal.cmm.SystemResourcePressureImpl;
-import java.time.LocalDate;
-import java.time.Month;
-import java.time.Period;
-import java.time.format.DateTimeFormatter;
-import java.time.format.DateTimeParseException;
 import java.util.*;
 public class Main {
     public static void main(String[] args) {
         Scanner sc = new Scanner(System.in);
         HashMap<String,String>usersLoginInfo = new HashMap<>();
         Hotel hotel = new Hotel("KFC","Chennai","54321","KFC@gmail.com","ZOHO",1);
-        Manager manager = new Manager("manager1","MANAGER","manager123","CHENNAI","123456789");
-        Chef chef = new Chef("chef1","CHEF","chef123","Chennai","123456789");
+        Manager manager = new Manager("M1_Surya","Surya","12345678","CHENNAI","123456789");
+        Chef chef = new Chef("Chef1","CHEF","chef123","Chennai","123456789");
         Menu menu = new Menu();
         menu.foodItems.put("Pizza",100);
         menu.foodItems.put("Burger",200);
@@ -42,7 +35,7 @@ public class Main {
         {
             System.out.print("1.Customer SignUp\n2.Customer Login\n3.Manager Login\n4.Employee Login\n5.Exit\n\n\nEnter your choice : ");
             int login;
-            try{
+            try {
                 login = Integer.parseInt(sc.nextLine().trim());
             }
             catch(NumberFormatException numberFormatException){
@@ -51,20 +44,28 @@ public class Main {
             }
             switch(login) {
                 case 1:
-                    System.out.print("\n\nEnter your id : ");
-                    String loginId = sc.nextLine().trim();
                     System.out.print("\nEnter your name : ");
                     String name = sc.nextLine().trim();
+                    System.out.print("\nGenerating ID : \n");
+                    String loginId = Customer.getLoginId(name);
                     System.out.print("\nEnter your gender : ");
                     String gender = sc.nextLine().trim();
                     System.out.print("\nEnter your location : ");
                     String location = sc.nextLine().trim();
                     System.out.print("\nEnter your mobileNumber : ");
                     String phoneNumber = sc.nextLine().trim();
-                    System.out.print("\nEnter your password : ");
+                    if(!Customer.validatePhoneNumber(phoneNumber)){
+                        System.out.println("\nYour mobile number is wrong...Please try again...");
+                        break;
+                    }
+                    System.out.print("\nPassword must contain at least one digit [0-9].\n\nPassword must contain at least one lowercase character [a-z].\n\nPassword must contain at least one uppercase character [A-Z].\n\nPassword must contain at least one special character like ! @ # & ( ).\n\nPassword must contain a length of at least 8 characters and a maximum of 20 characters.\n\n\nEnter your password : ");
                     String password = sc.nextLine().trim();
-                    if(usersLoginInfo.containsKey(loginId)){
-                        System.out.println("User already exists..Please log in..");
+                    if(!Customer.validatePassword(password)){
+                        System.out.println("\nTry again with new password...Password doesn't match credentials...\n\n");
+                        break;
+                    }
+                    if(usersLoginInfo.containsKey(loginId)) {
+                        System.out.println("\nUser already exists...");
                     }
                     else {
                         customer = new Customer(loginId, name, gender, location, phoneNumber, password);

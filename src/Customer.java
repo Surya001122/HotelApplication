@@ -1,6 +1,10 @@
 import java.util.*;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
+
 public class Customer {
     Scanner sc;
+    static int customerloginId = 1;
     private String customerId;
     private String customerName;
     private String gender;
@@ -255,5 +259,21 @@ public class Customer {
                 break;
         }
         return paymentStatus;
+    }
+    static String getLoginId(String name){
+        String id = "C"+customerloginId+"_"+name;
+        System.out.println("Your generated ID is "+id);
+        customerloginId += 1;
+        return id;
+    }
+    static boolean validatePassword(String password){
+        Pattern pattern = Pattern.compile("^(?=.*[0-9])(?=.*[a-z])(?=.*[A-Z])(?=.*[!@#&()]).{8,20}$");
+        Matcher matcher = pattern.matcher(password);
+        return matcher.matches();
+    }
+    static boolean validatePhoneNumber(String phoneNumber){
+        Pattern pattern = Pattern.compile("^[0-9].{7,15}$");
+        Matcher matcher = pattern.matcher(phoneNumber);
+        return matcher.matches();
     }
 }
