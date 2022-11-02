@@ -27,11 +27,11 @@ public class Manager extends Employee {
         System.out.print("\nGenerating ID : \n");
         customerId = Main.getLoginId(customerName);
         System.out.print("\nEnter your gender : ");
-        String customerGender = sc.nextLine().trim();
+        customerGender = sc.nextLine().trim();
         System.out.print("\nEnter your location : ");
-        String customerAddress = sc.nextLine().trim();
+        customerAddress = sc.nextLine().trim();
         System.out.print("\nEnter your mobileNumber : ");
-        String customerPhoneNumber = sc.nextLine().trim();
+        customerPhoneNumber = sc.nextLine().trim();
         if(!Main.validatePhoneNumber(customerPhoneNumber)){
             System.out.println("\nYour mobile number is wrong...Please try again...");
             return;
