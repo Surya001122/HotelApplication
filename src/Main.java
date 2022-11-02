@@ -1,5 +1,9 @@
 import java.util.*;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
+
 public class Main {
+    static int loginId = 1;
     public static void main(String[] args) {
         Scanner sc = new Scanner(System.in);
         HashMap<String,String>usersLoginInfo = new HashMap<>();
@@ -47,20 +51,20 @@ public class Main {
                     System.out.print("\nEnter your name : ");
                     String name = sc.nextLine().trim();
                     System.out.print("\nGenerating ID : \n");
-                    String loginId = Customer.getLoginId(name);
+                    String loginId = getLoginId(name);
                     System.out.print("\nEnter your gender : ");
                     String gender = sc.nextLine().trim();
                     System.out.print("\nEnter your location : ");
                     String location = sc.nextLine().trim();
                     System.out.print("\nEnter your mobileNumber : ");
                     String phoneNumber = sc.nextLine().trim();
-                    if(!Customer.validatePhoneNumber(phoneNumber)){
+                    if(!validatePhoneNumber(phoneNumber)){
                         System.out.println("\nYour mobile number is wrong...Please try again...");
                         break;
                     }
                     System.out.print("\nPassword must contain at least one digit [0-9].\n\nPassword must contain at least one lowercase character [a-z].\n\nPassword must contain at least one uppercase character [A-Z].\n\nPassword must contain at least one special character like ! @ # & ( ).\n\nPassword must contain a length of at least 8 characters and a maximum of 20 characters.\n\n\nEnter your password : ");
                     String password = sc.nextLine().trim();
-                    if(!Customer.validatePassword(password)){
+                    if(!validatePassword(password)){
                         System.out.println("\nTry again with new password...Password doesn't match credentials...\n\n");
                         break;
                     }
@@ -266,5 +270,21 @@ public class Main {
                     break;
             }
         }
+    }
+    static String getLoginId(String name){
+        String id = "C"+loginId+"_"+name;
+        System.out.println("Your generated ID is "+id);
+        loginId += 1;
+        return id;
+    }
+    static boolean validatePassword(String password){
+        Pattern pattern = Pattern.compile("^(?=.*[0-9])(?=.*[a-z])(?=.*[A-Z])(?=.*[!@#&()]).{8,20}$");
+        Matcher matcher = pattern.matcher(password);
+        return matcher.matches();
+    }
+    static boolean validatePhoneNumber(String phoneNumber){
+        Pattern pattern = Pattern.compile("^[0-9].{7,15}$");
+        Matcher matcher = pattern.matcher(phoneNumber);
+        return matcher.matches();
     }
 }

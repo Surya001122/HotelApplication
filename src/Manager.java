@@ -22,18 +22,26 @@ public class Manager extends Employee {
         this.hotel.displayAllAvailableRooms();
     }
     public void addCustomers(HashMap<String,String>usersLoginInfo){
-        System.out.print("\nEnter CustomerID : ");
-        customerId = sc.nextLine().trim();
-        System.out.println("\nEnter Customer Name : ");
+        System.out.print("\nEnter your name : ");
         customerName = sc.nextLine().trim();
-        System.out.println("Enter your gender : ");
-        customerGender = sc.nextLine().trim();
-        System.out.print("\nEnter Customer Password : ");
-        customerPassword = sc.nextLine().trim();
-        System.out.println("\nEnter Customer Address : ");
-        customerAddress = sc.nextLine().trim();
-        System.out.println("Enter Customer phoneNumber : ");
-        customerPhoneNumber = sc.nextLine().trim();
+        System.out.print("\nGenerating ID : \n");
+        customerId = Main.getLoginId(customerName);
+        System.out.print("\nEnter your gender : ");
+        String customerGender = sc.nextLine().trim();
+        System.out.print("\nEnter your location : ");
+        String customerAddress = sc.nextLine().trim();
+        System.out.print("\nEnter your mobileNumber : ");
+        String customerPhoneNumber = sc.nextLine().trim();
+        if(!Main.validatePhoneNumber(customerPhoneNumber)){
+            System.out.println("\nYour mobile number is wrong...Please try again...");
+            return;
+        }
+        System.out.print("\nPassword must contain at least one digit [0-9].\n\nPassword must contain at least one lowercase character [a-z].\n\nPassword must contain at least one uppercase character [A-Z].\n\nPassword must contain at least one special character like ! @ # & ( ).\n\nPassword must contain a length of at least 8 characters and a maximum of 20 characters.\n\n\nEnter your password : ");
+        String password = sc.nextLine().trim();
+        if(!Main.validatePassword(customerPassword)){
+            System.out.println("\nTry again with new password...Password doesn't match credentials...\n\n");
+            return;
+        }
         Customer customer = this.hotel.getCustomer(customerId,customerPassword);
         if(customer==null){
             customer = new Customer(customerId,customerName,customerGender,customerAddress,customerPhoneNumber,customerPassword);
@@ -61,18 +69,26 @@ public class Manager extends Employee {
         }
     }
     public void addEmployees(HashMap<String, String> usersLoginInfo){
-        System.out.print("\nEnter EmployeeID : ");
-        employeeId = sc.nextLine().trim();
         System.out.println("\nEnter EmployeeName : ");
         employeeName = sc.nextLine().trim();
-        System.out.print("\nEnter EmployeePassword : ");
-        employeePassword = sc.nextLine().trim();
-        System.out.println("\nEnter Employee Address : ");
-        employeeAddress = sc.nextLine().trim();
+        System.out.print("\nGenerating ID : \n");
+        employeeId = Main.getLoginId(employeeName);
         System.out.println("Enter Employee phoneNumber : ");
         employeePhoneNumber = sc.nextLine().trim();
+        if(!Main.validatePhoneNumber(employeePhoneNumber)){
+            System.out.println("\nYour mobile number is wrong...Please try again...");
+            return;
+        }
+        System.out.println("\nEnter Employee Address : ");
+        employeeAddress = sc.nextLine().trim();
+        System.out.print("\nPassword must contain at least one digit [0-9].\n\nPassword must contain at least one lowercase character [a-z].\n\nPassword must contain at least one uppercase character [A-Z].\n\nPassword must contain at least one special character like ! @ # & ( ).\n\nPassword must contain a length of at least 8 characters and a maximum of 20 characters.\n\n\nEnter your password : ");
+        String password = sc.nextLine().trim();
+        if(!Main.validatePassword(password)){
+            System.out.println("\nTry again with new password...Password doesn't match credentials...\n\n");
+            return;
+        }
         Employee employee = this.hotel.getEmployee(employeeId,employeePassword);
-        if(employee==null){
+        if(employee == null){
             employee = new Employee(employeeId,employeeName,employeePassword,employeeAddress,employeePhoneNumber);
             this.hotel.addEmployees(employee);
             System.out.println("\nNew employee added in hotel");
